@@ -1,4 +1,7 @@
 print("slm hhh")
+print("slm hhh")
+print("slm hhh")
+print("slm hhh")
 
 
 x = 5
