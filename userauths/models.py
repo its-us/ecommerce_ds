@@ -7,6 +7,7 @@ class User(AbstractUser):
     
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['username']
+    bio = models.CharField(max_length = 100)
     
     def __str__(self):
         return self.username
