@@ -137,13 +137,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-JAZZMIN_SETTINGS = {
+
+
+
+"""JAZZMIN_SETTINGS = {
     'site_header': "You order, we deliver",
     'site_brand': "ASMK Shop",
     'site_logo': "assets/imgs/logo/logo.png",
     'copyright': "ASKMShop.com",
     "search_model": "userauths.User"
     
-}
+}"""
 
 AUTH_USER_MODEL = 'userauths.User'
