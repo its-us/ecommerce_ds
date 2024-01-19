@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    #'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerceprj.urls'
@@ -141,6 +142,7 @@ JAZZMIN_SETTINGS = {
     'site_brand': "ASMK Shop",
     'site_logo': "assets/imgs/logo/logo.png",
     'copyright': "ASKMShop.com",
+    "search_model": "userauths.User"
     
 }
 
