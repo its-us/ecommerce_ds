@@ -15,10 +15,9 @@ def register_view(request):
                                     password = form.cleaned_data['password1']
             )
             login(request, new_user)
-            return redirect("templates/ecommerec:index")
+            return redirect("ecommerce:index")
    
     else:
-        print('not registred')
         form = UserRgisterForm()
     
     

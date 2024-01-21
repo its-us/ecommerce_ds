@@ -4,5 +4,5 @@ from django.urls import path
 app_name = "ecommerce"
 
 urlpatterns = [
-    path("" , index)
+    path("" , index, name = "index")
 ]
