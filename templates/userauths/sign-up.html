@@ -22,22 +22,19 @@
                                     </div>
                                     <form method="post" action="{% url 'userauths:sign-up' %}">
                                         {% csrf_token %}
-<<<<<<< HEAD
-                                        <div class="form-group">
-                                            <input type="text" required="" name="username" placeholder="Username">
+                                        <div class = "form-group">
+                                            {{ form.username}}
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" required="" name="email" placeholder="Email">
+                                        <div class = "form-group">
+                                            {{ form.email}}
                                         </div>
-                                        <div class="form-group">
-                                            <input required="" type="password" name="password" placeholder="Password">
+                                        <div class = "form-group">
+                                            {{ form.password1}}
                                         </div>
-                                        <div class="form-group">
-                                            <input required="" type="password" name="password" placeholder="Confirm password">
+                                        <div class = "form-group">
+                                            {{ form.password2}}
                                         </div>
-=======
-                                        {{ form.as_p }}
->>>>>>> bf465d23c6a45918468c1f7c5c8df13a6126b427
+                                
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">

@@ -11,7 +11,6 @@ def register_view(request):
             username = form.cleaned_data.get("username")
             messages.success(request, f"Hey {username}, Your account was created successfully")
 
-<<<<<<< HEAD
             # Use form.cleaned_data['email'] instead of form.cleaned_data['username']
             new_user = authenticate(username=form.cleaned_data['email'],
                                     password=form.cleaned_data['password1'])
@@ -24,16 +23,6 @@ def register_view(request):
     
     
     
-=======
-            # Utilisation de la fonction authenticate pour obtenir l'utilisateur
-            user = authenticate(username=form.cleaned_data['email'], password=form.cleaned_data['password1'])
-
-            if user is not None:
-                login(request, user)
-                return redirect("ecommerce:index")
-    else:
-        form = UserRgisterForm()
->>>>>>> bf465d23c6a45918468c1f7c5c8df13a6126b427
 
     context = {'form': form}
     return render(request, "userauths/sign-up.html", context)
