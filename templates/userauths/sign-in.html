@@ -6,7 +6,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="assets/imgs/logo/logo.png" alt="logo"></a>
+                    <a href="index.html"><img src="{% static 'assets/imgs/logo/logo.png' %}" alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -103,11 +103,11 @@
                 </div>
                 <div class="mobile-social-icon">
                     <h5 class="mb-15 text-grey-4">Follow Us</h5>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-facebook.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-twitter.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-instagram.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-pinterest.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-youtube.svg' %}" alt=""></a>
                 </div>
             </div>
         </div>
@@ -131,12 +131,13 @@
                                         <div class="heading_s1">
                                             <h3 class="mb-30">Login</h3>
                                         </div>
-                                        <form method="post">
+                                        <form method="POST">
+                                            {% csrf_token %}
                                             <div class="form-group">
-                                                <input type="text" required="" name="email" placeholder="Your Email">
+                                                <input type="text" required name="email" placeholder="Your Email">
                                             </div>
                                             <div class="form-group">
-                                                <input required="" type="password" name="password" placeholder="Password">
+                                                <input required type="password" name="password" placeholder="Password">
                                             </div>
                                             <div class="login_footer form-group">
                                                 <div class="chek-form">
@@ -156,7 +157,7 @@
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-6">
-                               <img src="assets/imgs/login.png">
+                               <img src="{% static 'assets/imgs/login.png' %}">
                             </div>
                         </div>
                     </div>

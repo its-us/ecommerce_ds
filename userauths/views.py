@@ -35,6 +35,7 @@ def register_view(request):
 
 def login_view(request):
     if request.user.is_authenticated:
+        messages.warning(request, f"Hey, You are already Logged In.")
         return redirect("ecommerce:index")
     
     if request.method == "POST":
