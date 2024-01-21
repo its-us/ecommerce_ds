@@ -31,7 +31,7 @@ def register_view(request):
     }
     return render(request, "userauths/sign-up.html", context)
 
-
+'''
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('ecommerce:index')  # Redirect to home page if already logged in
@@ -46,4 +46,4 @@ def login_view(request):
             messages.warning(request, f"User with {email} does not exist")
             
         user = authenticate(request, email = email)
-      
+    '''  
