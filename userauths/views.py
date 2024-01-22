@@ -46,6 +46,9 @@ def login_view(request):
 
         try:
             user  = User.object.get(email = email)
+
+            user  = User.objects.get(email = email)
+
             user = authenticate(request,  email = email, password = password)
 
             if user is not None:
