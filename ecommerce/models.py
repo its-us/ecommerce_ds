@@ -5,6 +5,7 @@ from userauths.models import User
 
 
 STATUS_CHOICE = (
+    ("published", "Published"),
     ("process", "Processing"),
     ("shipped", "Shipped"),
     ("delivered", "Delivered"),
@@ -80,14 +81,17 @@ class Product(models.Model):
     pid = ShortUUIDField(unique=True, default="ven")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    Vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+
     title = models.CharField(max_length=100, default="Product")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")
     price = models.DecimalField(max_digits=99999999999999, decimal_places=2, default="0.99")
     old_price = models.DecimalField(max_digits=99999999999999, decimal_places=2, default="2.99")
     specifications = models.TextField(null=True, blank=True)
-    tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    #tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
+
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)

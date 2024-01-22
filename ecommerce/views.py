@@ -6,7 +6,8 @@ from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItem
 
 
 def index(request):
-    products = Product.objects.all()
+    #products = Product.objects.all().order_by("-id")
+    products = Product.objects.filter(product_status = "published", featured = True)
     context = {
         "products": products
 
