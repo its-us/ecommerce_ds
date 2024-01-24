@@ -1,4 +1,4 @@
-from ecommerce.views import index, category_list_view, product_list_view, vendor_list_view , vendor_detail_view
+from ecommerce.views import index, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list
 from django.urls import path
 from django.urls import include 
 
@@ -11,8 +11,11 @@ urlpatterns = [
     path('user/', include('userauths.urls')),
     path('categories/', category_list_view, name='category-list'),
     path('products/', product_list_view, name='product-list'),
+    path('products/<pid>/', product_detail_view, name='product-detail'),    
     path('vendors/', vendor_list_view, name='vendor-list'),
-     path('vendor/<vid>/', vendor_detail_view, name='vendor-detail'),
+    path('vendor/<vid>/', vendor_detail_view, name='vendor-detail'),
+    path('category_product_list/<cid>/', category_product_list_view, name='category_product_list'),
+    path('tags/<slug:tag_slug>/', tag_list, name='tags'),
 
 
 
