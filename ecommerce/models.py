@@ -2,6 +2,7 @@ from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
+from taggit.managers import TaggableManager
 
 
 STATUS_CHOICE = (
@@ -10,6 +11,40 @@ STATUS_CHOICE = (
     ("shipped", "Shipped"),
     ("delivered", "Delivered"),
 )
+
+RETURN = (
+    ("No Return Policy", "No Return Policy"),
+    ("7 Days Return Policy", "7 Days Return Policy"),
+)
+
+COD = (
+    ("Cash on Delivery Available", "Cash on Delivery Available"),
+    ("Cash on Delivery is not Available", "Cash on Delivery is not Available")
+)
+
+COLOR_CHOICES = (
+    ('black', 'Black'),
+    ('blue', 'Blue'),
+    ('red', 'Red'),
+    ('white', 'White'),
+    ('purple', 'Purple'),
+    ("green","Green"),
+    ("orange", "Orange"),
+    ("cyan", "Cyan")
+)
+
+PACKAGE_CHOICES = (
+    ("Rigid Boxes", "Rigid Boxes"),
+    ("Paperboard", "Paperboard"),
+    ("Chipboard", "Chipboard"),
+    ("Corrugated Cardboard", "Corrugated Cardboard"),
+    ("Cotton", "Cotton"),
+    ("Plastics", "Plastics"),
+    ("Foil Sealed Bags", "Foil Sealed Bags"),
+    ("Jute (Hessian/Burlap)", "Jute (Hessian/Burlap)"),
+    ("Envelopes / Bubble Mailers", "Envelopes / Bubble Mailers"),
+)
+
 
 STATUS = (
     ("draft", "Draft"),
@@ -33,8 +68,8 @@ def user_directory_path(instance, filename):
 
 
 class Category(models.Model):
-    cid = ShortUUIDField(unique=True, default="cat")
-    title = models.CharField(max_length=100, default="Cloths")
+    cid = ShortUUIDField(unique=True, length = 10, max_length = 20, prefix="cat", alphabet = "abcdefgh12345")
+    title = models.CharField(max_length=100, default="")
     image = models.ImageField(upload_to="category", default="category.jpg")
 
     class Meta:
@@ -52,7 +87,7 @@ class Tags(models.Model):
 
 
 class Vendor(models.Model):
-    vid = ShortUUIDField(unique=True, default="ven")
+    vid = ShortUUIDField(unique=True, length = 10, max_length = 20, prefix="ven", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="Vendor")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="I am an Amazing Vendor")
@@ -78,25 +113,42 @@ class Vendor(models.Model):
 
 
 class Product(models.Model):
-    pid = ShortUUIDField(unique=True, default="ven")
+    pid = ShortUUIDField(unique=True, length = 10, max_length = 20, prefix="pro", alphabet = "abcdefgh12345")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name = "category")
     Vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=100, default="Product")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
+    small_description = models.TextField(null=True, blank=True, default="This is a small product")
     description = models.TextField(null=True, blank=True, default="This is the product")
     price = models.DecimalField(max_digits=99999999999999, decimal_places=2, default="0.99")
     old_price = models.DecimalField(max_digits=99999999999999, decimal_places=2, default="2.99")
-    specifications = models.TextField(null=True, blank=True)
+    specifications = models.TextField(null=True, blank = True)
+    type = models.CharField(max_length=100, default="Organic", null=True, blank = True)
+    stock_count = models.CharField(max_length=100, default="12", null=True, blank = True)
+    waranty = models.CharField(max_length=100, default="1", null=True, blank = True)
+    mfd = models.DateTimeField(auto_now_add=False, null=True, blank = True)
+    p_quantity = models.CharField(max_length=100, default="2 shoes")
+    frame = models.CharField(max_length=10, default="Iron")
+    weight_wo_wheels = models.CharField(max_length=10, default="20LBS")
+    weight_capacity = models.CharField(max_length=10, default="80LBS")
+    size = models.CharField(max_length=10, default="All Sizes")
+
+
+    tags = TaggableManager(blank = True)
     #tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
+    p_return = models.CharField(choices=RETURN, max_length=50, default="7 Days Return Policy")
+    cod = models.CharField(choices=COD, max_length=50, default="Cash on Delivery Available")
+    color = models.CharField(choices=COLOR_CHOICES, max_length=50, blank=True, null=True)
+    Type_of_packing = models.CharField(choices=PACKAGE_CHOICES, max_length=50, blank=True, null=True, default="Foil Sealed Bags")
 
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     digital = models.BooleanField(default=False)
-    sku = ShortUUIDField(unique=True, default="sku")
+    sku = ShortUUIDField(unique=True, length = 10, max_length = 20, prefix="SKU", alphabet = "ABCD1234")
 
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(null=True, blank=True)
@@ -117,7 +169,7 @@ class Product(models.Model):
 
 class ProductImages(models.Model):
     images = models.ImageField(upload_to="product-images", default="product.jpg")
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, related_name = "p_images", on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
