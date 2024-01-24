@@ -4,10 +4,12 @@ from django.utils.html import mark_safe
 from userauths.models import User
 
 
+
 STATUS_CHOICE = (
     ("process", "Processing"),
     ("shipped", "Shipped"),
     ("delivered", "Delivered"),
+    ("published", "Published"),
 )
 
 STATUS = (
@@ -52,8 +54,10 @@ class Tags(models.Model):
 
 class Vendor(models.Model):
     vid = ShortUUIDField(unique=True, default="ven")
+    
     title = models.CharField(max_length=100, default="Vendor")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+    cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")  # Ajout du champ cover_image
     description = models.TextField(null=True, blank=True, default="I am an Amazing Vendor")
 
     address = models.CharField(max_length=100, default="123 casabarata")
@@ -65,7 +69,8 @@ class Vendor(models.Model):
     warranty_period = models.CharField(max_length=100)
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-
+    date = models.DateTimeField(auto_now_add=True, null = True,blank = True)
+    
     class Meta:
         verbose_name_plural = "Vendors"
 
@@ -77,16 +82,18 @@ class Vendor(models.Model):
 
 
 class Product(models.Model):
-    pid = ShortUUIDField(unique=True, default="ven")
+    pid = ShortUUIDField(unique=True, default="prod")     
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name ="category")
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, related_name="products")
+
     title = models.CharField(max_length=100, default="Product")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")
     price = models.DecimalField(max_digits=99999999999999, decimal_places=2, default="0.99")
     old_price = models.DecimalField(max_digits=99999999999999, decimal_places=2, default="2.99")
     specifications = models.TextField(null=True, blank=True)
-    tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+   # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
