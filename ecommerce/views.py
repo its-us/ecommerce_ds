@@ -77,6 +77,7 @@ def category_product_list_view(request, cid):
 def product_detail_view(request, pid):
     product = Product.objects.get(pid = pid)
     #product = get_object_or_404(Product, pid = pid)
+    vendor = product.vendor
 
     products = Product.objects.filter(category = product.category).exclude(pid = pid)[:8]
 
@@ -92,6 +93,7 @@ def product_detail_view(request, pid):
         "reviews":reviews,
         "average_rating":average_rating,
         "products":products,
+        "vendor":vendor,
     }
 
     return render(request, "ecommerce/product-detail.html", context)
