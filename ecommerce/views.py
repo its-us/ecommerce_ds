@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Count, Avg
 from django.http import HttpResponse
 from taggit.models import Tag
 from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist, Address
@@ -27,6 +28,8 @@ def vendor_list_view(request):
 def vendor_detail_view(request, vid):
     vendor = Vendor.objects.get(vid=vid)
     products = Product.objects.filter(vendor=vendor, product_status="published")
+
+    
     
     context = {
         "vendor": vendor,
@@ -77,12 +80,17 @@ def product_detail_view(request, pid):
 
     products = Product.objects.filter(category = product.category).exclude(pid = pid)[:8]
 
+    reviews = ProductReview.objects.filter(product = product)
+
+    average_rating = ProductReview.objects.filter(product = product).aggregate(rating = Avg('rating'))
 
     p_image = product.p_images.all()
 
     context = {
         "product":product,
         "p_image":p_image,
+        "reviews":reviews,
+        "average_rating":average_rating,
         "products":products,
     }
 
