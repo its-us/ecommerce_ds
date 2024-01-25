@@ -93,8 +93,9 @@ class Vendor(models.Model):
     vid = ShortUUIDField(unique=True, length = 10, max_length = 20, prefix="ven", alphabet = "abcdefgh12345")
     title = models.CharField(max_length=100, default="Vendor")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
-    cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")  # Ajout du champ cover_image
+    cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg") 
     description = models.TextField(null=True, blank=True, default="I am an Amazing Vendor")
+    
 
     address = models.CharField(max_length=100, default="123 casabarata")
     contact = models.CharField(max_length=100, default="+212 65447xx120")
@@ -103,6 +104,11 @@ class Vendor(models.Model):
     authentic_rating = models.CharField(max_length=100)
     days_return = models.CharField(max_length=100)
     warranty_period = models.CharField(max_length=100)
+    
+    facebook = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True, null = True,blank = True)
@@ -115,6 +121,15 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def has_facebook(self):
+        return bool(self.facebook)
+
+    def has_instagram(self):
+        return bool(self.instagram)
+
+    def has_linkedin(self):
+        return bool(self.linkedin)
 
 
 class Product(models.Model):

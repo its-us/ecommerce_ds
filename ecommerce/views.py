@@ -30,7 +30,8 @@ def vendor_detail_view(request, vid):
     
     context = {
         "vendor": vendor,
-        "products": products,  
+        "products": products,
+
     }
 
     return render(request, "ecommerce/vendor-detail.html", context)
