@@ -122,3 +122,55 @@ $(document).ready(function(){
             })
     })
 });
+
+// Au clic sur le bouton "Add to cart"
+$("#add-to-cart-btn").on("click", function() {
+    // Récupérer les informations du produit
+    let quantity = $("#product-quantity").val();
+    let product_title = $(".product-title").val();
+    let product_id = $(".product-id").val();
+    let product_price = parseFloat($(".current-product-price").text().replace('$', ''));
+
+
+    // Calculer le prix total pour la quantité donnée
+    let total = product_price * parseInt(quantity);
+    let this_val = $(this)
+
+    // Afficher les informations dans la console
+    console.log("Product Title:", product_title);
+    console.log("Product ID:", product_id);
+    console.log("Quantity:", quantity);
+    console.log("Unit Price:", product_price);
+    console.log("Total Price:", total);
+    console.log("Current Element:", this_val);
+
+
+    // Ajouter le produit au panier ou à votre logique spécifique ici
+    // ...
+
+    // Ne pas oublier d'empêcher le formulaire de se soumettre
+   
+
+    $.ajax({
+        url: '/add-to-cart',
+        data:{
+            'id': product_id,
+            'qty': quantity,
+            'title': product_title,
+            'price': product_price,
+        },
+        dataType: 'json',
+        beforeSend: function(){
+            console.log("Adding Product to Cart ...");
+
+        },
+        success: function(response){
+            this_val.html("Item added to cart")
+            console.log("Added Product to Cart!");
+            $(".cart-items-count").text(response.totalcartitems)
+ 
+        }
+
+    })
+});
+

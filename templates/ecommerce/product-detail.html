@@ -70,9 +70,12 @@
                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
-                                                <ins><span class="text-brand"> ${{product.price}} </span></ins>
-                                                <ins><span class="old-price font-md ml-15">${{product.old_price}}</span></ins>
-                                                <span class="save-price  font-md color3 ml-15">{{product.get_percentage|floatformat:0}}% OFF! </span>
+                                                <span>$<ins><span class="text-brand current-product-price">{{product.price}} </span></ins></span>
+                                                <span>          
+                                                    <ins><span class="old-price font-md ml-15">${{product.old_price}}</span></ins>
+                                           
+                                                    <span class="save-price  font-md color3 ml-15">-{{product.get_percentage|floatformat:0}}% OFF! </span>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -94,28 +97,33 @@
                                         </div>
                                         
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
-                                        <div class="detail-extralink">
-                                            <div class="detail-qty border radius">
-                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                                <span class="qty-val">1</span>
-                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                            <div>
+                                                    <input type="number" value="1" name="" id="product-quantity" class="w-25 mb-20">
                                             </div>
-                                            <div class="product-extra-link2">
-                                                <button type="submit" class="button button-add-to-cart">Add to cart</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
+                                            <div class="detail-extralink">
+                                            <!-- <div class="detail-qty border radius">
+                                                    <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
+                                                    <span class="qty-val">1</span>
+                                                    <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                                </div>-->
+                                                <div class="product-extra-link2">
+                                                    <input type="hidden" value="{{ product.id }}" class="product-id" name="" id="">
+                                                    <input type="hidden" value="{{ product.title }}"class="product-title" name="" id="">
+                                                    <button type="submit" class="button button-add-to-cart" id="add-to-cart-btn">Add to cart</button>
+                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
+                                                </div>
                                             </div>
+                                                <ul class="product-meta font-xs color-grey mt-50">
+                                                <li class="mb-5">SKU: <a href="#"> {{product.sku}} </a></li>
+                                                <li class="mb-5">Tags:
+                                                    {% for tag in product.tags.all %}
+                                                        <a href="{% url 'ecommerce:tags' tag.slug %}" rel="tag">{{ tag.name }}</a>,
+                                                    {% endfor %}
+                                                </li>
+                                                <li>Availability:<span class="in-stock text-success ml-5">{{product.stock_count}} Items In Stock</span></li>
+                                            </ul>
                                         </div>
-                                        <ul class="product-meta font-xs color-grey mt-50">
-                                            <li class="mb-5">SKU: <a href="#"> {{product.sku}} </a></li>
-                                            <li class="mb-5">Tags:
-                                                {% for tag in product.tags.all %}
-                                                    <a href="{% url 'ecommerce:tags' tag.slug %}" rel="tag">{{ tag.name }}</a>,
-                                                {% endfor %}
-                                            </li>
-                                            <li>Availability:<span class="in-stock text-success ml-5">{{product.stock_count}} Items In Stock</span></li>
-                                        </ul>
-                                    </div>
                                     <!-- Detail Info -->
                                 </div>
                             </div>
@@ -334,7 +342,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="product-price">
-                                                        <span>${{p.price}} </span>
+                                                        <span class="current-product-price">${{p.price}} </span>
                                                         <span class="old-price">${{p.old_price}}</span>
                                                     </div>
                                                 </div>
