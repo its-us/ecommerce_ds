@@ -210,8 +210,8 @@ def add_to_cart(request):
         'title': request.GET['title'],
         'qty': request.GET['qty'],
         'price': request.GET['price'],
-       # 'image':request.GET['image'],
-       # 'pid':request.GET['pid'],
+        'image':request.GET['image'],
+        'pid':request.GET['pid'],
 
     }
 

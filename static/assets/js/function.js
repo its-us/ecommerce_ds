@@ -124,24 +124,29 @@ $(document).ready(function(){
 });
 
 // Au clic sur le bouton "Add to cart"
-$("#add-to-cart-btn").on("click", function() {
+$(".add-to-cart-btn").on("click", function() {
+    let this_val = $(this) 
+    let index = this_val.attr("data-index")
     // Récupérer les informations du produit
-    let quantity = $("#product-quantity").val();
-    let product_title = $(".product-title").val();
-    let product_id = $(".product-id").val();
-    let product_price = parseFloat($(".current-product-price").text().replace('$', ''));
-
-
-    // Calculer le prix total pour la quantité donnée
+    let quantity = $(".product-quantity-" + index).val() //modifihadi wsf
+    let product_title= $(".product-title-" + index).val() 
+    let product_id = $(".product-id-" + index).val() 
+     let product_price = parseFloat($(".current-product-price-" + index).text().replace('$', ''));
     let total = product_price * parseInt(quantity);
-    let this_val = $(this)
+    let product_pid = $(".product-pid-" + index).val()
+    let product_image = $(".product-image-" + index).val()
+   
 
     // Afficher les informations dans la console
-    console.log("Product Title:", product_title);
-    console.log("Product ID:", product_id);
+   
+    console.log("Title:", product_title);
+    console.log("ID:", product_id);
     console.log("Quantity:", quantity);
-    console.log("Unit Price:", product_price);
+    console.log("Price:", product_price);
     console.log("Total Price:", total);
+    console.log("PID:", product_pid);
+    console.log("Image:", product_image);
+    console.log("Index:", index);
     console.log("Current Element:", this_val);
 
 
@@ -155,9 +160,12 @@ $("#add-to-cart-btn").on("click", function() {
         url: '/add-to-cart',
         data:{
             'id': product_id,
+            'pid':product_pid,
+            'image':product_image,
             'qty': quantity,
             'title': product_title,
             'price': product_price,
+
         },
         dataType: 'json',
         beforeSend: function(){
@@ -165,7 +173,7 @@ $("#add-to-cart-btn").on("click", function() {
 
         },
         success: function(response){
-            this_val.html("Item added to cart")
+            this_val.html("✔")
             console.log("Added Product to Cart!");
             $(".cart-items-count").text(response.totalcartitems)
  
@@ -173,4 +181,3 @@ $("#add-to-cart-btn").on("click", function() {
 
     })
 });
-
