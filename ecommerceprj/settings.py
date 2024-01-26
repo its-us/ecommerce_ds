@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     #packages
     'taggit',
+    'ckeditor',
 
     #custom Apps
     'ecommerce',
@@ -157,3 +158,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 }"""
 
 AUTH_USER_MODEL = 'userauths.User'
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+
+CKEDITOR_CONFIGS = {
+    'default' : {
+        'skin': 'moono',
+        'codeSnippet_theme': 'monokai',
+        'toolbar': 'all',
+        'extraPlugins': ', '.join(
+            [
+                'codesnippet',
+                'widget',
+                'dialog'
+            ]
+        )
+    }
+}

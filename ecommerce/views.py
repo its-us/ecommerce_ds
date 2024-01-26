@@ -111,7 +111,7 @@ def product_detail_view(request, pid):
         "average_rating":average_rating,
         "products":products,
         "vendor":vendor,
-        "make_review":make_review
+        "make_review":make_review,
     }
 
     return render(request, "ecommerce/product-detail.html", context)
