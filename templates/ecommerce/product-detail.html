@@ -98,7 +98,7 @@
                                         
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                             <div>
-                                                    <input type="number" value="1" name="" id="product-quantity" class="w-25 mb-20">
+                                                    <input type="number" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{product.id}}">
                                             </div>
                                             <div class="detail-extralink">
                                             <!-- <div class="detail-qty border radius">
@@ -109,7 +109,8 @@
                                                 <div class="product-extra-link2">
                                                    <!-- <input type="hidden" value="{{ product.id }}" class="product-id" name="" id="">
                                                     <input type="hidden" value="{{ product.title }}"class="product-title" name="" id="">-->
-                                                    <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{product.id}}">
+
+                                                    <!--<input type="hidden" value="1" id="product-quantity" class="product-quantity-{{product.id}}">  -->
                                                     <input type="hidden" class="product-pid-{{product.id}}" value="{{product.pid}}">
                                                     <input type="hidden" class="product-image-{{product.id}}" value="{{product.image.url}}">
                                                     <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}">

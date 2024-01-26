@@ -1,4 +1,4 @@
-from ecommerce.views import index, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart
+from ecommerce.views import index, cart_view, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart
 from django.urls import path
 from django.urls import include 
 from django.conf import settings
@@ -26,6 +26,9 @@ urlpatterns = [
     path('filter-products/', filter_product , name="filter-products"),
     
     path("add-to-cart/", add_to_cart, name = "add-to-cart"),
+
+    #cart page
+    path("cart/", cart_view, name = "cart"),
 
 
 
