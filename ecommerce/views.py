@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count, Avg
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
 from taggit.models import Tag
 from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist, Address
-
+from ecommerce.forms import ProductReviewForm
+from  django.template.loader import render_to_string
 
 
 def index(request):
@@ -44,8 +45,13 @@ def vendor_detail_view(request, vid):
 
 def product_list_view(request):
     products = Product.objects.filter(product_status = "published")
+    vendors = [product.vendor for product in products]
+
+    # Now 'vendors' is a list containing the 'vendor' attribute for each product
+    
     context = {
-        "products": products
+        "products": products,
+        'vendors': vendors
 
     }
 
@@ -84,16 +90,28 @@ def product_detail_view(request, pid):
     reviews = ProductReview.objects.filter(product = product)
 
     average_rating = ProductReview.objects.filter(product = product).aggregate(rating = Avg('rating'))
+    
+    # Product Review form
+    review_form = ProductReviewForm()
+    make_review = True 
+
+    if request.user.is_authenticated:
+        user_review_count = ProductReview.objects.filter(user = request.user, product = product).count()
+
+        if user_review_count > 0:
+            make_review = True
 
     p_image = product.p_images.all()
 
     context = {
         "product":product,
+        "review_form":review_form,
         "p_image":p_image,
         "reviews":reviews,
         "average_rating":average_rating,
         "products":products,
         "vendor":vendor,
+        "make_review":make_review
     }
 
     return render(request, "ecommerce/product-detail.html", context)
@@ -115,3 +133,73 @@ def tag_list(request, tag_slug = None):
     }
 
     return render(request, "ecommerce/tag.html", context)
+
+
+
+
+
+def ajax_add_review(request, pid):
+    product = Product.objects.get(pk=pid)
+    user = request.user
+    
+    review = ProductReview.objects.create(
+        user = user,
+        product =product,
+        review = request.POST['review'],
+        rating= request.POST['rating'],
+    )
+    
+    context = {
+        'user': user.username,
+        'review' : request.POST['review'],
+        'rating' : request.POST['rating'],
+        
+        
+    }
+    
+    
+    average_reviews = ProductReview.objects.filter(product=product).aggregate(rating=Avg("rating"))
+    
+    return JsonResponse(
+        {
+        'bool' : True,
+        'context' :  context,
+        'average_reviews' : average_reviews,
+        }
+    )
+
+
+
+def search_view(request):
+    query = request.GET.get("q")
+
+    products = Product.objects.filter(title__icontains = query).order_by("-date")
+
+    context = {
+        "products":products,
+        "query":query,
+    }
+
+    return render(request, "ecommerce/search.html", context)
+
+
+
+def filter_product(request):
+    categories = request.GET.getlist('category[]') 
+    vendors = request.GET.getlist('vendor[]')
+
+    products = Product.objects.filter(product_status = "published").order_by("-id").distinct()
+    
+    if len(categories) > 0: 
+        products = products.filter(category__id__in=categories).distinct()
+        
+        
+    if len(vendors) > 0: 
+        products = products.filter(vendor__id__in=vendors).distinct()
+    
+       
+        
+    data = render_to_string("ecommerce/async/product-list.html",{"products":products})
+    
+    return JsonResponse({"data":data})
+    

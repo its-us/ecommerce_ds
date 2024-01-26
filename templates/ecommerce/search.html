@@ -6,7 +6,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="{% static 'assets/imgs/logo/logo.png' %}" alt="logo"></a>
+                    <a href="index.html"><img src="assets/imgs/logo/logo.png" alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -103,11 +103,11 @@
                 </div>
                 <div class="mobile-social-icon">
                     <h5 class="mb-15 text-grey-4">Follow Us</h5>
-                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-facebook.svg' %}" alt=""></a>
-                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-twitter.svg' %}" alt=""></a>
-                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-instagram.svg' %}" alt=""></a>
-                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-pinterest.svg' %}" alt=""></a>
-                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-youtube.svg' %}" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
                 </div>
             </div>
         </div>
@@ -115,8 +115,13 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
+                    {% if query %}
                     <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> Products
+                    <span><a href="{% url 'ecommerce:product-list' %}" rel="nofollow">Products</a></span>
+                    <span>{{query}}</span>
+                    {% else %}
+                    <h4>No Searched Item.</h4>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -169,7 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row product-grid-3" id="filtered-products">
+                        <div class="row product-grid-3">
 
                             {% for product in products %}
                             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
@@ -195,7 +200,7 @@
                                         <div class="product-category">
                                             <a href="product-list.html">{{product.category}}</a>
                                         </div>
-                                        <h2><a href="product-details.html">{{product.title}}</a></h2>
+                                        <h2><a href="{% url 'ecommerce:product-detail' product.pid %}">{{product.title}}</a></h2>
                                         <div class="rating-result" title="90%">
                                             <span>
                                                 <span>4</span>
@@ -233,155 +238,60 @@
                             <div class="col-lg-12 col-mg-6"></div>
                             <div class="col-lg-12 col-mg-6"></div>
                         </div>
-                        <div class="widget-category mb-30">
-                            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                            <ul class="categories">
-                                <div class="widget-category mb-30">
-                                    <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                                    <ul class="categories">
-                                        {% for c in categories %}
-                                        <li class="category-item">
-                                            <input class="form-check-input filter-checkbox" type="checkbox" name="checkbox" data-filter="category" id="examplecheckbox2" value="{{ c.id }}" />
-                                            <a href="{% url 'ecommerce:category_product_list' c.cid %}" class="category-link">
-                                                <img class="category-icon" src="{{ c.image.url }}" alt="{{ c.title }}">
-                                                <span class="category-title">{{ c.title }}</span>
-                                            </a>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                                
-                                
-                        </div>
                         
                         <!-- Fillter By Price -->
                         <div class="sidebar-widget price_range range mb-30">
                             <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="widget-title mb-10">Vendor</h5>
-                                <div class="d-flex">
-                                    <div class="custom-checkbox mr-80">
-                                        {%for v in vendors %}
-                                            <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="checkbox" id="examplecheckbox1" value="{{ v.id }}" />
-                                            <label class="form-check-label"
-                                            for="examplecheckbox1"><span>{{v.title}}</span></label>
-                                            <br />
-                                        {%endfor%}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product sidebar Widget -->
-                        <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
-                            <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="widget-title mb-10">New products</h5>
+                                <h5 class="widget-title mb-10">Fill by price</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h5><a href="product-details.html">Chen Cardigan</a></h5>
-                                    <p class="price mb-0 mt-5">$99.50</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:90%"></div>
+                            <div class="price-filter">
+                                <div class="price-filter-inner">
+                                    <div id="slider-range"></div>
+                                    <div class="price_slider_amount">
+                                        <div class="label-input">
+                                            <span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h6><a href="product-details.html">Chen Sweater</a></h6>
-                                    <p class="price mb-0 mt-5">$89.50</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:80%"></div>
+                            <div class="list-group">
+                                <div class="list-group-item mb-10 mt-10">
+                                    <label class="fw-900">Color</label>
+                                    <div class="custome-checkbox">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                                        <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
+                                        <br>
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
+                                        <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
+                                        <br>
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
+                                        <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
+                                    </div>
+                                    <label class="fw-900 mt-15">Item Condition</label>
+                                    <div class="custome-checkbox">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
+                                        <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
+                                        <br>
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="">
+                                        <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
+                                        <br>
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="">
+                                        <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="{% static 'assets/imgs/shop/thumbnail-5.jpg' %}" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h6><a href="product-details.html">Colorful Jacket</a></h6>
-                                    <p class="price mb-0 mt-5">$25</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a href="product-list.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
                         </div>
-                        <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                            <img src="{% static 'assets/imgs/banner/banner-11.jpg' %}" alt="">
-                            <div class="banner-text">
-                                <span>Women Zone</span>
-                                <h4>Save 17% on <br>Office Dress</h4>
-                                <a href="product-list.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                            </div>
+                        <!-- Product sidebar Widget -->
+                        
+                            
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </section>
-        <style>
-      
-            .categories {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-            
-            .category-item {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px; /* Ajoute un espace entre chaque élément */
-            }
-            
-            .form-check-input {
-                margin-right: 5px; /* Ajoute un espace entre la checkbox et l'image */
-            }
-            
-            .category-link {
-                display: flex;
-                align-items: center;
-                text-decoration: none; /* Supprime le soulignement du lien */
-            }
-            
-            .category-icon {
-                width: 40px;
-                height: 40px;
-                object-fit: cover;
-                border-radius: 50%;
-                margin-right: 10px;
-            }
-            
-            .category-title {
-                display: inline-block;
-                vertical-align: middle;
-            }
-            /* Style de la checkbox lorsqu'elle est cochée */
-.form-check-input:checked {
-    background-color: brown;
-    border-color: brown;
-}
-
-/* Style de la coche à l'intérieur de la checkbox lorsqu'elle est cochée */
-.form-check-input:checked::before {
-    content: '\2713'; /* Utilise le caractère Unicode pour la coche (✔) */
-    color: white; /* Couleur du texte de la coche */
-    font-size: 12px; /* Taille de la coche */
-    position: absolute;
-    top: 50%; /* Alignement vertical au milieu */
-    left: 50%; /* Alignement horizontal au milieu */
-    transform: translate(-50%, -50%); /* Ajuste la position pour être centrée */
-}
-
-            
-                
-        </style>    
-</main>
-    
+    </main>
 
 {% endblock content %}

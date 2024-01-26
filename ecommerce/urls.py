@@ -1,6 +1,8 @@
-from ecommerce.views import index, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list
+from ecommerce.views import index, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review
 from django.urls import path
 from django.urls import include 
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 app_name = "ecommerce"
@@ -16,7 +18,16 @@ urlpatterns = [
     path('vendor/<vid>/', vendor_detail_view, name='vendor-detail'),
     path('category_product_list/<cid>/', category_product_list_view, name='category_product_list'),
     path('tags/<slug:tag_slug>/', tag_list, name='tags'),
+    
+    #Add Review 
+    path('ajax-add-review/<pid>/', ajax_add_review, name="ajax-add-review"),
+
+    path("search/", search_view, name = "search"),
+    path('filter-products/', filter_product , name="filter-products"),
 
 
 
 ]
+
+
+

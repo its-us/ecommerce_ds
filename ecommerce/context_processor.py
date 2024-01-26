@@ -4,6 +4,12 @@ from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItem
 
 def default(request):
     categories = Category.objects.all()
+    
+    try:
+        address = Address.objects.get(user=request.user)
+    except:
+        address = None
     return {
-        'categories':categories
+        'categories':categories,
+        'address':address,
     }
