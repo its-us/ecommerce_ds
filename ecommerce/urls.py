@@ -1,4 +1,4 @@
-from ecommerce.views import index, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart, delete_item_from_cart
+from ecommerce.views import index,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart, delete_item_from_cart
 from django.urls import path
 from django.urls import include 
 from django.conf import settings
@@ -25,6 +25,7 @@ urlpatterns = [
     path("search/", search_view, name = "search"),
     path('filter-products/', filter_product , name="filter-products"),
     
+    
     path("add-to-cart/", add_to_cart, name = "add-to-cart"),
 
     #cart page
@@ -32,9 +33,19 @@ urlpatterns = [
 
     #delete item from cart
     path("delete-from-cart/", delete_item_from_cart, name = "delete-from-cart"),
-
+    #Update cart
     path("update-cart/", update_cart, name = "update-cart"),
+    
+    #checkout url
+    path("checkout/", checkout_view, name = "checkout"),
 
+    #Paypal
+    path("paypal/", include('paypal.standard.ipn.urls')),
+    
+    #Payment Successful
+    path("payment-completed/", payment_completed_view, name = "payment-completed"),
+    #Payment Failed
+    path("payment-failed/", payment_failed_view, name = "payment-failed"),
 ]
 
 

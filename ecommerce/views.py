@@ -1,11 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count, Avg
-from django.http import HttpResponse , JsonResponse
+from django.http import  JsonResponse
 from taggit.models import Tag
 from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist, Address
 from ecommerce.forms import ProductReviewForm
 from  django.template.loader import render_to_string
 from django.contrib import messages
+from django.urls  import reverse
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -284,4 +289,36 @@ def update_cart(request):
     context = render_to_string("ecommerce/async/cart-list.html",{"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
         
+
+@login_required
+def checkout_view(request):
+    host = request.get_host()
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': '200',
+        'item_name': "Order-Item-No-4",
+        'invoice':"INV_NO-3",
+        'currency_code':"USD",
+        'notify_url':'http://{}{}'.format(host, reverse("paypal-ipn")),
+        'return_url':'http://{}{}'.format(host, reverse("ecommerce:payment-completed")),
+        'cancel_url':'http://{}{}'.format(host, reverse("ecommerce:payment-failed")),
+    }
+    
+    paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
+    
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+        return render(request, "ecommerce/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount, 'paypal_payment_button':paypal_payment_button})
+    
+ 
+
+
+def payment_completed_view(request):
+    return render(request,'ecommerce/payment-completed.html')
+
+
+def payment_failed_view(request):
+    return render(request,'ecommerce/payment-failed.html')
     

@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     #packages
     'taggit',
     'ckeditor',
+    
+    # Paypal
+    'paypal.standard.ipn',
 
     #custom Apps
     'ecommerce',
@@ -60,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerceprj.urls'
@@ -157,6 +160,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     
 }"""
 
+LOGIN_URL = "userauths:sign-in"
+
 AUTH_USER_MODEL = 'userauths.User'
 CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 
@@ -171,6 +176,9 @@ CKEDITOR_CONFIGS = {
                 'widget',
                 'dialog'
             ]
-        )
+        ),
     }
 }
+
+PAYPAL_RECEIVER_EMAIL = 'desphixsbusiness.com'
+PAYPAL_TEST = True

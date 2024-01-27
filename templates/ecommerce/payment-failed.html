@@ -1,0 +1,129 @@
+{% extends "patials/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .main-contents {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .paper-container {
+        position: relative;
+        overflow: hidden;
+        height: 400px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        background: linear-gradient(180deg, #ff6666 0%, #ff3333 100%);
+        color: #fff;
+    }
+
+    .paper {
+        position: relative;
+        z-index: 1;
+        border-radius: 12px;
+        background-color: #fff;
+        padding: 24px;
+        max-height: 429px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .jagged-edge {
+        position: relative;
+        height: 20px;
+        width: 100%;
+        margin-top: -1px;
+    }
+
+    .jagged-edge:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: linear-gradient(45deg,
+            transparent 33.333%,
+            #ffffff 33.333%,
+            #ffffff 66.667%,
+            transparent 66.667%),
+            linear-gradient(-45deg,
+            transparent 33.333%,
+            #ffffff 33.333%,
+            #ffffff 66.667%,
+            transparent 66.667%);
+        background-size: 16px 40px;
+        background-position: 0 -20px;
+    }
+
+    .failure-icon {
+        text-align: center;
+        font-size: 72px;
+        height: 72px;
+        line-height: 72px;
+        background: #ff3333;
+        border-radius: 50%;
+        width: 72px;
+        color: #fff;
+        margin: 0 auto 16px;
+    }
+
+    .failure-title {
+        font-size: 36px;
+        text-align: center;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+
+    .failure-description {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #555;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .retry-button {
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        color: #fff;
+        background-color: 	#FF0000;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .retry-button:hover {
+        background-color: #fff; /* White background on hover */
+        color: #ff0000; /* Red text on hover */
+        border: 2px solid #ff0000; /* Red border on hover */
+    }
+
+    
+</style>
+
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="paper-container">
+            <div class="paper">
+                <br>
+                <div class="main-contents">
+                    <div class="failure-icon">&#10008;</div>
+                    <div class="failure-title">Payment Failed</div>
+                    <div class="failure-description">
+                        Oops! Something went wrong with your payment. Please try again.
+                    </div>
+                    <a href="#" class="retry-button">Retry Payment</a>
+                </div>
+                <div class="jagged-edge"></div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

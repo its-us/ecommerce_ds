@@ -1,0 +1,214 @@
+{% extends "patials/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    
+  
+
+    main {
+        max-width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .dashboard-header {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .dashboard-header a {
+        color: #fff;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .dashboard-header i {
+        margin-right: 5px;
+    }
+
+    .page-header {
+        background-color: #fff;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #333;
+    }
+
+    address {
+        font-size: 16px;
+        margin: 10px 0;
+        color: #555;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px 0;
+    }
+
+    article {
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        color: #333;
+    }
+
+    th {
+        background-color: #D6AD60;
+        color: #fff;
+    }
+
+    .add, .cut, .download-btn, .print-btn {
+        background: #D6AD60;
+        color: #fff;
+        padding: 8px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 0 5px;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        transition: background 0.3s ease;
+    }
+
+    .cut {
+        background: #F44336;
+    }
+
+    .balance {
+        margin-top: 20px;
+    }
+
+    aside {
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-left: 4px solid #D6AD60;
+    }
+
+    aside h1 {
+        color: #333;
+        font-size: 20px;
+        border-bottom: 2px solid #D6AD60;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    aside p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #555;
+    }
+</style>
+
+<main class="main">
+    <div class="dashboard-header">
+        <a href="#">
+            <i class="fa fa-dashboard"></i> Dashboard
+        </a>
+    </div>
+    <div class="page-header breadcrumb-wrap">
+        <div>
+            <h1>Invoice</h1>
+            <address contenteditable>
+                <p>Jonathan Neal</p>
+                <p>101 E. Chapman Ave, Orange, CA 92866</p>
+                <p>(800) 555-1234</p>
+            </address>
+            <span>
+                <img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png">
+                <input type="file" accept="image/*">
+            </span>
+        </div>
+        <article>
+            <h1>Recipient</h1>
+            <address contenteditable>
+                <p>Some Company, c/o Some Guy</p>
+            </address>
+            <table class="meta">
+                <tr>
+                    <th><span contenteditable>Invoice #</span></th>
+                    <td><span contenteditable>101138</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Date</span></th>
+                    <td><span contenteditable>January 1, 2012</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Amount Due</span></th>
+                    <td><span id="prefix" contenteditable>$</span><span>600.00</span></td>
+                </tr>
+            </table>
+            <table class="inventory">
+                <thead>
+                    <tr>
+                        <th><span contenteditable>Item</span></th>
+                        <th><span contenteditable>Description</span></th>
+                        <th><span contenteditable>Rate</span></th>
+                        <th><span contenteditable>Quantity</span></th>
+                        <th><span contenteditable>Price</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a class="cut">-</a><span contenteditable>Front End Consultation</span></td>
+                        <td><span contenteditable>Experience Review</span></td>
+                        <td><span data-prefix>$</span><span contenteditable>150.00</span></td>
+                        <td><span contenteditable>4</span></td>
+                        <td><span data-prefix>$</span><span>600.00</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="add">+</a>
+            <table class="balance">
+                <tr>
+                    <th><span contenteditable>Total</span></th>
+                    <td><span data-prefix>$</span><span>600.00</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Amount Paid</span></th>
+                    <td><span data-prefix>$</span><span contenteditable>0.00</span></td>
+                </tr>
+                <tr>
+                    <th><span contenteditable>Balance Due</span></th>
+                    <td><span data-prefix>$</span><span>600.00</span></td>
+                </tr>
+            </table>
+        </article>
+        <aside>
+            <h1><span contenteditable>Additional Notes</span></h1>
+            <div contenteditable>
+                <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+            </div>
+            <div>
+                <button class="download-btn">Download</button>
+                <button class="print-btn">Print</button>
+            </div>
+        </aside>
+    </div>
+</main>
+<br>
+{% endblock content %}
+
