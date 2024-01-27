@@ -199,6 +199,8 @@ $(document).ready(function(){
                 this_val.show()
                 $(".cart-items-count").text(response.totalcartitems)
                 $("#cart-list").html(response.data)
+                location.reload();
+
             }
         })
     })
