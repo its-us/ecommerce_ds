@@ -240,43 +240,15 @@
                                 <h5 class="widget-title mb-10">Fill by price</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
-                            <div class="price-filter">
-                                <div class="price-filter-inner">
-                                    <div id="slider-range"></div>
-                                    <div class="price_slider_amount">
-                                        <div class="label-input">
-                                            <span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price">
-                                        </div>
-                                    </div>
-                                </div>
+                            
+                                <input type="range" name="ranDge" value="{{min_max_price.price__min|floatformat:2}}" class="slider-range" id="range" min = "{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" oninput="max_price.value=this.value">
+                                <div class="caption">From:<strong id="slider-range-value1" class="text-brand">${{min_max_price.price__min|floatformat:2}}</strong></div>
+                                <div class="caption">To:<strong id="slider-range-value2" class="text-brand">${{min_max_price.price__max|floatformat:2}}</strong></div>
+                                <input type="number" name="" value="{{min_max_price.price__min|floatformat:2}}" id="max_price" min ="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" placeholder ="current price" onkeyup="range.value=this.value">
+
+                            <div class="custom-checkbox">
+                                <button class="btn mt-20 w-100" id="price-filter-btn" >Filter By Price</button>
                             </div>
-                            <div class="list-group">
-                                <div class="list-group-item mb-10 mt-10">
-                                    <label class="fw-900">Color</label>
-                                    <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                        <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                        <br>
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
-                                        <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                        <br>
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
-                                        <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
-                                    </div>
-                                    <label class="fw-900 mt-15">Item Condition</label>
-                                    <div class="custome-checkbox">
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
-                                        <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                        <br>
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="">
-                                        <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                        <br>
-                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="">
-                                        <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="product-list.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
                         </div>
                         <!-- Product sidebar Widget -->
                         

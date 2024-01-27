@@ -2,42 +2,151 @@
 {% load static%} 
 {% block content %}
 
-<head>
-    <style>
-        input[type="range"] {
-            appearance: none;
-            -webkit-appearance: none;
-            margin-right: 15px;
-            height: 7px;
-            background: rgba(255, 190, 0, 0.6);
-            border-radius: 5px;
-            background-image: linear-gradient(#D8C26E, #D8C26E);
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-        }
-    
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background: #D8C26E;
-            cursor: ew-resize;
-            box-shadow: 0 0 2px 0 #555;
-            transition: background 0.3s ease-in-out;
-        }
-    
-        input[type="range"]::-webkit-slider-runnable-track {
-            -webkit-appearance: none;
-            appearance: none;
-            box-shadow: none;
-            border: none;
-            background: transparent;
-        }
-    </style>
-    </head>
-<main class="main">
+    <head>
+        <style>
+            input[type="range"] {
+                appearance: none;
+                -webkit-appearance: none;
+                margin-right: 15px;
+                height: 7px;
+                background: rgba(255, 190, 0, 0.6);
+                border-radius: 5px;
+                background-image: linear-gradient(#D8C26E, #D8C26E);
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+            }
+        
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: #D8C26E;
+                cursor: ew-resize;
+                box-shadow: 0 0 2px 0 #555;
+                transition: background 0.3s ease-in-out;
+            }
+        
+            input[type="range"]::-webkit-slider-runnable-track {
+                -webkit-appearance: none;
+                appearance: none;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+            }
+        </style>
+    </head>
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="index.html"><img src="{% static 'assets/imgs/logo/logo.png' %}" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-dress"></i>Women's Clothing</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-tshirt"></i>Men's Clothing</a></li>
+                                <li> <a href="shop.html"><i class="surfsidemedia-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-desktop"></i>Computer & Office</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-cpu"></i>Consumer Electronics</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-teddy-bear"></i>Mother & Kids</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="index.html">Home</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="shop.html">shop</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Our Collections</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="product-details.html">Dresses</a></li>
+                                            <li><a href="product-details.html">Blouses & Shirts</a></li>
+                                            <li><a href="product-details.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="product-details.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="product-details.html">Jackets</a></li>
+                                            <li><a href="product-details.html">Casual Faux Leather</a></li>
+                                            <li><a href="product-details.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="product-details.html">Gaming Laptops</a></li>
+                                            <li><a href="product-details.html">Ultraslim Laptops</a></li>
+                                            <li><a href="product-details.html">Tablets</a></li>
+                                            <li><a href="product-details.html">Laptop Accessories</a></li>
+                                            <li><a href="product-details.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog.html">Blog</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a href="contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="login.html">Log In </a>                        
+                    </div>
+                    <div class="single-mobile-header-info">                        
+                        <a href="register.html">Sign Up</a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+1) 0000-000-000 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-facebook.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-twitter.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-instagram.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-pinterest.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-youtube.svg' %}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>        <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -168,7 +277,22 @@
                             <div class="col-lg-12 col-mg-6"></div>
                             <div class="col-lg-12 col-mg-6"></div>
                         </div>
-                       
+
+                        <div class="sidebar-widget price_range range mb-30">
+                            <div class="widget-header position-relative mb-20 pb-10">
+                                <h5 class="widget-title mb-10">Fill by price</h5>
+                                <div class="bt-1 border-color-1"></div>
+                            </div>
+                            
+                                <input type="range" name="ranDge" value="{{min_max_price.price__min|floatformat:2}}" class="slider-range" id="range" min = "{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" oninput="max_price.value=this.value">
+                                <div class="caption">From:<strong id="slider-range-value1" class="text-brand">${{min_max_price.price__min|floatformat:2}}</strong></div>
+                                <div class="caption">To:<strong id="slider-range-value2" class="text-brand">${{min_max_price.price__max|floatformat:2}}</strong></div>
+                                <input type="number" name="" value="{{min_max_price.price__min|floatformat:2}}" id="max_price" min ="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" placeholder ="current price" onkeyup="range.value=this.value">
+
+                            <div class="custom-checkbox">
+                                <button class="btn mt-20 w-100" id="price-filter-btn" >Filter By Price</button>
+                            </div>
+                        </div>
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                            
@@ -187,51 +311,26 @@
                                 
                                 
                         </div>
+                     
                         
                         <!-- Fillter By Price -->
-                        
-                            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Fill by</h5>
-                            <div class="widget-header position-relative mb-20 pb-10">
-                                <div class="sidebar-widget price_range range mb-30">
-                                    <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="section-title style-1 mb-30 wow fadeIn animated">price</h5>
-                                <div class="bt-1 border-color-1"></div>
-                                    <div class="price-filter">
-                                        <div class="price-filter-inner">
-                                                   
-                                            <input type="range" name="ranDge" value="{{min_max_price.price_min|floatformat:2}}" class="slider-range" id="range" min = "{{min_max_price.pricemin}}" max="{{min_max_price.price_max}}" oninput="max_price.value=this.value">
-                                            <div class="caption">From:<strong id="slider-range-value1" class="text-brand">${{min_max_price.price__min|floatformat:2}}</strong></div>
-                                                <div class="caption">To:<strong id="slider-range-value2" class="text-brand">${{min_max_price.price__max|floatformat:2}}</strong></div>
-                                                    <input type="number" name="" value="{{min_max_price.price_min|floatformat:2}}" id="max_price" min ="{{min_max_price.pricemin}}" max="{{min_max_price.price_max}}" placeholder ="current price" onkeyup="range.value=this.value">
-            
-                                                    <div class="custom-checkbox">
-                                                        <button class="btn mt-20 w-100" id="price-filter-btn">Filter By Price</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="widget-header position-relative mb-20 pb-10">
-                                <div class="sidebar-widget price_range range mb-30">
-                                    <div class="widget-header position-relative mb-20 pb-10">
-                                        <h5 class="section-title style-1 mb-30 wow fadeIn animated">Vendor</h5>
-                                            <div class="d-flex">
-                                                <div class="custom-checkbox mr-80">
-                                                    {%for v in vendors %}
-                                                        <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="checkbox" id="examplecheckbox1" value="{{ v.id }}" />
-                                                        <label class="form-check-label"
-                                                        for="examplecheckbox1"><span>{{v.title}}</span></label>
-                                                        <br />
-                                                    {%endfor%}
-                                                </div>
+                        <div class="widget-header position-relative mb-20 pb-10">
+                            <div class="sidebar-widget price_range range mb-30">
+                                <div class="widget-header position-relative mb-20 pb-10">
+                                    <h5 class="section-title style-1 mb-30 wow fadeIn animated">Vendor</h5>
+                                        <div class="d-flex">
+                                            <div class="custom-checkbox mr-80">
+                                                {%for v in vendors %}
+                                                    <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="checkbox" id="examplecheckbox1" value="{{ v.id }}" />
+                                                    <label class="form-check-label"
+                                                    for="examplecheckbox1"><span>{{v.title}}</span></label>
+                                                    <br />
+                                                {%endfor%}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            
-                        
-                            
+                            </div>
                         <!-- Product sidebar Widget -->
                         <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
                             <div class="widget-header position-relative mb-20 pb-10">

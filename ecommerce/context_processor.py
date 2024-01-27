@@ -11,9 +11,9 @@ def default(request):
         address = Address.objects.get(user=request.user)
     except:
         address = None
-    return  {
+    return {
         'categories':categories,
         'address':address,
         'vendors':vendors,
         'min_max_price':min_max_price,
-        }
+    }
