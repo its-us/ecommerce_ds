@@ -121,63 +121,117 @@ $(document).ready(function(){
                 }
             })
     })
-});
-
-// Au clic sur le bouton "Add to cart"
-$(".add-to-cart-btn").on("click", function() {
-    let this_val = $(this) 
-    let index = this_val.attr("data-index")
-    // Récupérer les informations du produit
-    let quantity = $(".product-quantity-" + index).val() //modifihadi wsf
-    let product_title= $(".product-title-" + index).val() 
-    let product_id = $(".product-id-" + index).val() 
-    let product_price = parseFloat($(".current-product-price-" + index).text().replace('$', ''));
-    let total = product_price * parseInt(quantity);
-    let product_pid = $(".product-pid-" + index).val()
-    let product_image = $(".product-image-" + index).val()
-   
-
-    // Afficher les informations dans la console
-   
-    console.log("Title:", product_title);
-    console.log("ID:", product_id);
-    console.log("Quantity:", quantity);
-    console.log("Price:", product_price);
-    console.log("Total Price:", total);
-    console.log("PID:", product_pid);
-    console.log("Image:", product_image);
-    console.log("Index:", index);
-    console.log("Current Element:", this_val);
 
 
-    // Ajouter le produit au panier ou à votre logique spécifique ici
-    // ...
+    $(".add-to-cart-btn").on("click", function() {
+        let this_val = $(this) 
+        let index = this_val.attr("data-index")
+        // Récupérer les informations du produit
+        let quantity = $(".product-quantity-" + index).val() //modifihadi wsf
+        let product_title= $(".product-title-" + index).val() 
+        let product_id = $(".product-id-" + index).val() 
+        let product_price = parseFloat($(".current-product-price-" + index).text().replace('$', ''));
+        let total = product_price * parseInt(quantity);
+        let product_pid = $(".product-pid-" + index).val()
+        let product_image = $(".product-image-" + index).val()
+    
 
-    // Ne pas oublier d'empêcher le formulaire de se soumettre
-   
+        // Afficher les informations dans la console
+    
+        console.log("Title:", product_title);
+        console.log("ID:", product_id);
+        console.log("Quantity:", quantity);
+        console.log("Price:", product_price);
+        console.log("Total Price:", total);
+        console.log("PID:", product_pid);
+        console.log("Image:", product_image);
+        console.log("Index:", index);
+        console.log("Current Element:", this_val);
 
-    $.ajax({
-        url: '/add-to-cart',
-        data:{
-            'id': product_id,
-            'pid':product_pid,
-            'image':product_image,
-            'qty': quantity,
-            'title': product_title,
-            'price': product_price,
 
-        },
-        dataType: 'json',
-        beforeSend: function(){
-            console.log("Adding Product to Cart ...");
+        // Ajouter le produit au panier ou à votre logique spécifique ici
+        // ...
 
-        },
-        success: function(response){
-            this_val.html("✔")
-            console.log("Added Product to Cart!");
-            $(".cart-items-count").text(response.totalcartitems)
- 
-        }
+        // Ne pas oublier d'empêcher le formulaire de se soumettre
+    
 
+        $.ajax({
+            url: '/add-to-cart',
+            data:{
+                'id': product_id,
+                'pid':product_pid,
+                'image':product_image,
+                'qty': quantity,
+                'title': product_title,
+                'price': product_price,
+
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                console.log("Adding Product to Cart ...");
+
+            },
+            success: function(response){
+                this_val.html("✔")
+                console.log("Added Product to Cart!");
+                $(".cart-items-count").text(response.totalcartitems)
+    
+            }
+
+        })
     })
-});
+
+    $(document).on("click", '.delete-product', function(){
+        let product_id = $(this).attr("data-product")
+        let this_val = $(this)
+        console.log("PRoduct ID:", product_id);
+        
+        $.ajax({
+            url: "/delete-from-cart",
+            data: {
+                "id":product_id
+            },
+            dataType: "json",
+            beforeSend: function(){
+                this_val.hide()
+            },
+            success: function(response){
+                this_val.show()
+                $(".cart-items-count").text(response.totalcartitems)
+                $("#cart-list").html(response.data)
+            }
+        })
+    })
+
+    $(document).on("click", '.update-product', function(){
+    
+        let product_id = $(this).attr("data-product")
+        let this_val = $(this)
+        let product_quantity = $(".product-qty-"+product_id).val()
+    
+        console.log("Product ID:", product_id);
+        console.log("Quantity: ", product_quantity);
+    
+    
+        
+        $.ajax({
+            url: "/update-cart",
+            data:{
+                "id": product_id,
+                "qty": product_quantity,
+    
+            },
+            dataType: "json",
+            beforeSend: function(){
+                this_val.hide()
+            },
+            success: function(response){
+                this_val.show()
+                $(".cart-items-count").text(response.totalcartitems)
+                $("#cart-list").html(response.data)
+                location.reload();
+        }
+    })
+    })
+
+})

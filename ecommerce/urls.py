@@ -1,4 +1,4 @@
-from ecommerce.views import index, cart_view, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart
+from ecommerce.views import index, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart, delete_item_from_cart
 from django.urls import path
 from django.urls import include 
 from django.conf import settings
@@ -30,7 +30,10 @@ urlpatterns = [
     #cart page
     path("cart/", cart_view, name = "cart"),
 
+    #delete item from cart
+    path("delete-from-cart/", delete_item_from_cart, name = "delete-from-cart"),
 
+    path("update-cart/", update_cart, name = "update-cart"),
 
 ]
 
