@@ -185,8 +185,13 @@
                                                             <!--<p>{{ a.status}}</p>-->
                                                         </address>
                                                         <br>
-                                                        <button class="btn" >Make default</button>
-                                                        <i class="fa fa-check-circle text-success"></i>
+                                                        {% if a.status %}
+                                                            <i data-address-id="{{a.id}}" class="fa fa-check-circle text-success check{{a.id}} check"></i>
+                                                            <button data-address-id="{{a.id}}" style="display: none;" class="btn make-default-address button{{a.id}} action_btn">Make default</button>
+                                                        {% else %}
+                                                            <i data-address-id="{{a.id}}" style="display: none;" class="fa fa-check-circle text-success check check{{a.id}}"></i>
+                                                            <button data-address-id="{{a.id}}" class="btn make-default-address button{{a.id}} action_btn">Make default</button>
+                                                        {% endif %}
                                                     </div>
                                                     
                                                 </div>

@@ -348,7 +348,13 @@ def checkout_view(request):
     #    for p_id, item in request.session['cart_data_obj'].items():
     #       cart_total_amount += int(item['qty']) * float(item['price'])
     
-    return render(request, "ecommerce/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount, 'paypal_payment_button':paypal_payment_button})
+    try:
+        active_address = Address.objects.get(user=request.user, status = True)
+    except:
+        messages.warning(request, "Please choose a DEFAULT ADDRESS! only one is ALLOWED")
+        active_address = None
+
+    return render(request, "ecommerce/checkout.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount, 'paypal_payment_button':paypal_payment_button, "active_address":active_address})
 
 
 @login_required
@@ -403,7 +409,13 @@ def order_detail(request, id):
 
 
     
-    
+def make_address_default(request):
+    id = request.GET['id']
+
+    Address.objects.update(status=False)
+    Address.objects.filter(id=id).update(status=True)
+
+    return JsonResponse({"boolean": True})
 
 
 

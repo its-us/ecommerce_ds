@@ -1,4 +1,4 @@
-from ecommerce.views import index,order_detail,customer_dashboard,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart, delete_item_from_cart
+from ecommerce.views import index,order_detail, make_address_default, customer_dashboard,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart, delete_item_from_cart
 from django.urls import path
 from django.urls import include 
 from django.conf import settings
@@ -54,7 +54,17 @@ urlpatterns = [
     
     #Order Detail
     path("dashboard/order/<int:id>", order_detail, name = "order-detail"),
+
+    #making address default
+    path("make-default-address/", make_address_default, name ="make-default-address")
+
+
+
+
+
 ]
+
+
 
 
 
