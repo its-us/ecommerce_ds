@@ -180,5 +180,5 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-PAYPAL_RECEIVER_EMAIL = 'desphixsbusiness.com'
+PAYPAL_RECEIVER_EMAIL = 'sb-pnvdq29403190@business.example.com'
 PAYPAL_TEST = True
