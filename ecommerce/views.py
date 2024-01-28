@@ -4,13 +4,14 @@ from django.http import  JsonResponse
 from taggit.models import Tag
 from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist, Address
 from ecommerce.forms import ProductReviewForm
-from  django.template.loader import render_to_string
+from django.template.loader import render_to_string
 from django.contrib import messages
 from django.urls  import reverse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib.auth.decorators import login_required
+from userauths.models import Profile
 
 
 
@@ -367,9 +368,13 @@ def payment_failed_view(request):
 def customer_dashboard(request):
     orders = CartOrder.objects.filter(user=request.user).order_by("-id")
 
-    address = Address.objects.filter(user=request.user)#modi
+    address = Address.objects.filter(user=request.user)
 
+
+
+    user_profile = Profile.objects.get(user=request.user)
     context = {
+        "user_profile":user_profile,
         "orders":orders,
         "address":address
     }
