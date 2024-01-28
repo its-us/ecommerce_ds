@@ -361,6 +361,33 @@ def payment_completed_view(request):
 @login_required
 def payment_failed_view(request):
     return render(request,'ecommerce/payment-failed.html')
+
+
+@login_required
+def customer_dashboard(request):
+    orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+
+    address = Address.objects.filter(user=request.user)#modi
+
+    context = {
+        "orders":orders,
+        "address":address
+    }
+
+    return render(request, 'ecommerce/dashboard.html', context)
+
+def order_detail(request, id):
+    order = CartOrder.objects.get(user=request.user, id = id)
+    order_items =  CartOrderItems.objects.filter(order=order)
+
+    context = {
+        "order_items":order_items
+    }
+    
+    return render(request, 'ecommerce/order-detail.html', context)
+
+
+    
     
 
 
