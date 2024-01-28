@@ -227,6 +227,9 @@ class CartOrderItems(models.Model):
     class Meta:
         verbose_name_plural = "Cart Order Items"
 
+    def category_image(self):
+            return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+    
     def order_img(self):
         return mark_safe('<img src="/media/%s" width="50" height="50"/>' % (self.image))
 
