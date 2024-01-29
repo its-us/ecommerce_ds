@@ -1,6 +1,6 @@
 from django.contrib import admin
-from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist, Address
-
+from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist_model, Address
+from userauths.models import contactUs
 
 
 # Register your models here.
@@ -41,11 +41,20 @@ class AddressAdmin(admin.ModelAdmin):
     list_editable = ['address', 'status']
     list_display = ['user','address', 'status']
 
+class contactUsAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'email', 'phone']
+    
+
+
+
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
 admin.site.register(CartOrderItems, CartOrderItemsAdmin)
 admin.site.register(ProductReview, ProductReviewAdmin)
-admin.site.register(Wishlist, WishlistAdmin)
+admin.site.register(Wishlist_model, WishlistAdmin)
 admin.site.register(Address, AddressAdmin)
+admin.site.register(contactUs, contactUsAdmin)

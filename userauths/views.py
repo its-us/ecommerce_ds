@@ -45,7 +45,6 @@ def login_view(request):
         password = request.POST.get("password")
 
         try:
-            user  = User.object.get(email = email)
 
             user  = User.objects.get(email = email)
 

@@ -1,0 +1,76 @@
+<main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow">Home</a>
+                    <span></span> Shop
+                    <span></span> Your Cart
+                </div>
+            </div>
+        </div>
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <h1 class="heading-2 mb-10">Your Cart</h1>
+                <h6 class="text-body">There are <span class="text-brand">{{totalcartitems}}</span> Products in your cart</h6>
+
+                <br>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center clean">
+                                <thead>
+                                    <tr class="main-heading">
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Stock Status</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">Remove</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for w in w %}
+                                    <tr>
+                                        <td class="image product-thumbnail"><img src="{{ w.product.image.url }}" alt="#"></td>
+                                        <td class="product-des product-name">
+                                            <h5 class="product-name"><a href="{% url 'ecommerce:product-detail' w.product.pid %}">{{w.product.title|truncatechars:30}}</a></h5>
+                                            
+                                        </td>
+                                        <td class="price" data-title="Price"><span class="current-product-price-{{ w.product.id }}">${{w.product.price|floatformat:2}}</span></td>
+                                        <td class="text-center detail-info" data-title="stock">
+                                            <span class="stock-status in-stock mb-0"> {% if w.product.in_stock %} In Stock {% else %} Out Of Stock {% endif %}</span>
+                                        </td>
+                                        <!--<td class="action" data-title="Refrech"><a href="#" class="text-body"><i class="fi-rs-refresh"></i></a></td>-->
+                                        <td class="text-right" data-title="Crat">
+                                            <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{w.product.id}}">
+                                            <input type="hidden" class="product-pid-{{w.product.id}}" value="{{w.product.pid}}">
+                                            <input type="hidden" class="product-image-{{w.product.id}}" value="{{w.product.image.url}}">
+                                            <input type="hidden" class="product-id-{{w.product.id}}" value="{{w.product.id}}">
+                                            <input type="hidden" class="product-title-{{w.product.id}}" value="{{w.product.title}}">
+                                            
+                                            <button class="btn btn-sm add add-to-cart-btn" data-index="{{w.product.id}}"> {% if w.product.in_stock %} Add to cart {% else %} Contact Us {% endif %} </button>
+                                        </td>
+                                        <td class="action text-center" data-title="Remove">
+                                            <button style="border:none; background:none" class="text-body delete-wishlist-product" data-wishlist-product="{{ w.id }}">
+                                                <i class="fi-rs-trash"></i>
+                                            </button>
+                                        </td>
+                                    {% empty %}
+                                    <tr>
+                                        <td>
+                                            <p>Nothing in wishlist Yet.</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart-action text-end">
+                            <a class="btn" href="{% url 'ecommerce:product-list' %}"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>

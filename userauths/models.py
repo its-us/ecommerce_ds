@@ -14,7 +14,6 @@ class User(AbstractUser):
     
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     image = models.ImageField(upload_to="image")
@@ -23,8 +22,32 @@ class Profile(models.Model):
     phone = models.CharField(max_length=200)
     verified = models.BooleanField(default = False)
 
-    def __str__(self):
+    def _str_(self):
+        
+            return f"{self.user.username}-{self.full_name}-{self.bio}"
+    
+    
+   
+
+
+class contactUs(models.Model):
+    full_name = models.CharField(max_length=20) 
+    email = models.CharField(max_length=50) 
+    phone = models.CharField(max_length=15) 
+    subject = models.CharField(max_length=100)
+    message = models.TextField()
+
+    class Meta :
+        verbose_name=  "contactUs"
+        verbose_name_plural= "contactUs"
+
+    def _str_(self) :
         return self.full_name
     
-    
-    
+
+def create_user_profile(sender, instance, created,**kwargs,) :
+    if created:
+        Profile.objects.create(user=instance)
+
+def save_user_profile(sender, instance,**kwargs) :
+    instance.profile.sa

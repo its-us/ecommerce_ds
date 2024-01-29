@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.db.models import Count, Avg
 from django.http import  JsonResponse
 from taggit.models import Tag
-from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist, Address
+from ecommerce.models import Product, Category, Vendor, CartOrder, CartOrderItems, ProductImages, ProductReview, Wishlist_model, Address
 from ecommerce.forms import ProductReviewForm
 from django.template.loader import render_to_string
 from django.contrib import messages
@@ -11,7 +11,9 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib.auth.decorators import login_required
-from userauths.models import Profile
+from userauths.models import Profile, contactUs
+from django.db.models.functions import ExtractMonth
+import calendar
 
 
 
@@ -372,8 +374,17 @@ def payment_failed_view(request):
 
 @login_required
 def customer_dashboard(request):
-    orders = CartOrder.objects.filter(user=request.user).order_by("-id")
+    orders_list = CartOrder.objects.filter(user=request.user).order_by("-id")
     address = Address.objects.filter(user=request.user)
+    
+    orders = CartOrder.objects.annotate(month=ExtractMonth("order_date")).values("month").annotate(count=Count("id")).values("month","count")
+    month = []
+    total_orders = []
+    
+    for o in orders:
+        month.append(calendar.month_name[o["month"]])
+        total_orders.append(o["count"])
+        
     
     if request.method  == 'POST':
         address = request.POST.get("address")
@@ -381,6 +392,7 @@ def customer_dashboard(request):
         
         new_address = Address.objects.create(
             user=request.user,
+           
             address=address,
             mobile=mobile,
         )
@@ -391,8 +403,11 @@ def customer_dashboard(request):
     user_profile = Profile.objects.get(user=request.user)
     context = {
         "user_profile":user_profile,
+        "orders_list":orders_list,
+        "address":address,
         "orders":orders,
-        "address":address
+        "month":month,
+        "total_orders":total_orders,
     }
 
     return render(request, 'ecommerce/dashboard.html', context)
@@ -418,5 +433,122 @@ def make_address_default(request):
     return JsonResponse({"boolean": True})
 
 
+def wishlist_view(request):
+    try:
+        wishlist = Wishlist_model.objects.all()
+    except:
+        wishlist = None
+
+    context = {
+        "w":wishlist
+    }
+
+    return render(request, "ecommerce/wishlist.html", context)
 
 
+
+
+
+
+def add_to_wishlist(request):
+    product_id = request.GET["id"]
+    product = Product.objects.get(id=product_id)
+
+    context = {}
+
+    wishlist_count = Wishlist_model.objects.filter(product=product, user = request.user).count()
+
+
+    if wishlist_count > 0:
+        context = {
+            "bool":True
+        }
+    else:
+        new_wishlist = Wishlist_model.objects.create(
+            user = request.user,
+            product = product,
+        )
+
+        context = {
+            "bool": True
+        }
+
+    return JsonResponse(context)
+
+from django.core import serializers
+
+def remove_wishlist(request):
+    pid = request.GET['id']
+    wishlist = Wishlist_model.objects.filter(user = request.user)
+
+    wishlist_d = Wishlist_model.objects.get(id=pid)
+
+    delete_product = wishlist_d.delete()
+
+    context = {
+        "bool":True,
+        "w":wishlist,
+
+    }
+
+    wishlist_json = serializers.serialize('json', wishlist)
+
+    t = render_to_string("ecommerce/async/wishlist-list.html", context)
+
+    return JsonResponse({"data":t, "w":wishlist_json})
+
+
+
+def about_us(request):
+    return(request,"ecommerce/about_us.html")
+
+
+def ajax_contact_form(request):
+    full_name=request.GET["full_name"]
+    email=request.GET["email"]
+    phone=request.GET["phone"]
+    subject=request.GET["subject"]
+    message=request.GET["message"]
+    
+    contact =contactUs.objects.create(
+        full_name=full_name,
+        email= email ,
+        phone=phone,
+        subject =subject ,
+        message =message,
+    )
+
+    data={
+        "bool":True,
+        "message": "message send successfuly"
+
+    }
+    return JsonResponse({"data": data})
+
+
+def contact(request):
+    return render(request,'ecommerce/contact.html')
+
+def ajax_contact(request):
+    pass
+
+def about_us(request):
+    return render(request,'ecommerce/about_us.html')
+
+def purchase_guide(request):
+    return render(request,'ecommerce/purchase_guide.html')
+
+def privacy_policy(request):
+    return render(request,'ecommerce/privacy_policy.html')
+
+def terms_of_service(request):
+    return render(request,'ecommerce/terms_of_service.html')
+
+
+
+def purchase_guide(request):
+    return(request,"ecommerce/purchase_guide.html")
+def privacy_policy(request):
+    return(request,"ecommerce/privacy_policy.html")
+def terms_of_service(request):
+    return(request,"ecommerce/terms_of_service.html")

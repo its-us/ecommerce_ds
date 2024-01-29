@@ -206,7 +206,7 @@
                         <ul class="categories">
                             {% for c in categories %}
                             <li>
-                                <a href="product-list.html"><img src="{{c.image.url}}" alt="" />{{c.title}}</a>
+                                <a href="{% url 'ecommerce:category_product_list' c.cid %}"><img src="{{c.image.url}}" alt="" />{{c.title}}</a>
                                 <span class="count">{{c.category.all.count}}</span>
                             </li>
                             {% endfor %}

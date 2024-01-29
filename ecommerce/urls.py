@@ -1,10 +1,8 @@
-from ecommerce.views import index,order_detail, make_address_default, customer_dashboard,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart, delete_item_from_cart
+from ecommerce.views import index, contact, wishlist_view, ajax_contact_form, remove_wishlist, order_detail, make_address_default, customer_dashboard,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart,add_to_wishlist, delete_item_from_cart
 from django.urls import path
 from django.urls import include 
 from django.conf import settings
 from django.conf.urls.static import static
-
-
 app_name = "ecommerce"
 
 urlpatterns = [
@@ -56,9 +54,17 @@ urlpatterns = [
     path("dashboard/order/<int:id>", order_detail, name = "order-detail"),
 
     #making address default
-    path("make-default-address/", make_address_default, name ="make-default-address")
+    path("make-default-address/", make_address_default, name ="make-default-address"),
+
+    path("wishlist/", wishlist_view, name ="wishlist"),
+    
+    path("add-to-wishlist/", add_to_wishlist, name="add-to-wishlist"),
 
 
+    path("remove-from-wishlist/", remove_wishlist, name="remove-from-wishlist"),
+
+    path('contact/', contact, name='contact'),
+    path("ajax-contact-form/",ajax_contact_form,name="ajax-contact-form")
 
 
 
