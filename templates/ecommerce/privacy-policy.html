@@ -1,0 +1,201 @@
+{% extends "patials/base.html" %}
+{% load static%} 
+{% block content %}
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="index.html"><img src="{% static 'assets/imgs/logo/logo.png' %}" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-dress"></i>Women's Clothing</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-tshirt"></i>Men's Clothing</a></li>
+                                <li> <a href="shop.html"><i class="surfsidemedia-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-desktop"></i>Computer & Office</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-cpu"></i>Consumer Electronics</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-teddy-bear"></i>Mother & Kids</a></li>
+                                <li><a href="shop.html"><i class="surfsidemedia-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="index.html">Home</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="shop.html">shop</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Our Collections</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="product-details.html">Dresses</a></li>
+                                            <li><a href="product-details.html">Blouses & Shirts</a></li>
+                                            <li><a href="product-details.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="product-details.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="product-details.html">Jackets</a></li>
+                                            <li><a href="product-details.html">Casual Faux Leather</a></li>
+                                            <li><a href="product-details.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="product-details.html">Gaming Laptops</a></li>
+                                            <li><a href="product-details.html">Ultraslim Laptops</a></li>
+                                            <li><a href="product-details.html">Tablets</a></li>
+                                            <li><a href="product-details.html">Laptop Accessories</a></li>
+                                            <li><a href="product-details.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog.html">Blog</a></li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a href="contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="login.html">Log In </a>                        
+                    </div>
+                    <div class="single-mobile-header-info">                        
+                        <a href="register.html">Sign Up</a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+1) 0000-000-000 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-facebook.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-twitter.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-instagram.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-pinterest.svg' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'assets/imgs/theme/icons/icon-youtube.svg' %}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>        <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow">Home</a>                    
+                    <span></span> Privacy Policy
+                </div>
+            </div>
+        </div>
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="single-page pr-30 mb-lg-0 mb-sm-5">
+                            <div class="single-header style-2">
+                                <h2>Privacy Policy</h2>                                
+                            </div>                            
+                            <div class="single-content">
+                                <p> Please read these Terms of Service (“Terms”, “Terms of Service”) carefully before using the https://surfsidemedia.in website (the “Service”) operated by Surfside Media (“us”, “we”, or “our”).</p>
+                                <p>Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
+                                <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.</p>
+                                <h4>Rights & restrictions</h4>
+                                <ol>
+                                    <li>Members must be at least 18 years of age.</li>
+                                    <li>Members are granted a time-limited, non-exclusive, revocable, nontransferable, and non-sublicensable right to access that portion of the online course corresponding to the purchase.</li>
+                                    <li>The portion of the online course corresponding to the purchase will be available to the Member as long as the course is maintained by the Company, which will be a minimum of one year after Member’s purchase.</li>
+                                    <li>The videos in the course are provided as a video stream and are not downloadable.</li>
+                                    <li>By agreeing to grant such access, the Company does not obligate itself to maintain the course, or to maintain it in its present form.</li>
+                                </ol>
+                                <h4>Links To Other Web Sites</h4>
+                                <p>Our Service may contain links to third-party web sites or services that are not owned or controlled by Surfside Media.</p>
+                                <p>Surfside Media has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that Surfside Media shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.</p>
+                                <p>We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or services that you visit.</p>
+                                <h4>Termination</h4>
+                                <p>We may terminate or suspend access to our Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+                                <p>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.</p>
+                                <h4>Governing Law</h4>
+                                <p>These Terms shall be governed and construed in accordance with the laws of Viet Nam, without regard to its conflict of law provisions.</p>
+                                <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have between us regarding the Service.</p>
+                                <h4>Changes</h4>
+                                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to provide at least 30 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+                                <p>By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.</p>
+                                <h4>Contact Us</h4>
+                                <p>If you have any questions about these Terms, please <a href="{% url 'ecommerce:contact' %}">contact us</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                        <div class="widget-area">
+                            <div class="sidebar-widget widget_search mb-50">
+                                <div class="search-form">
+                                    <form action="#">
+                                        <input type="text" placeholder="Search…">
+                                        <button type="submit"> <i class="fi-rs-search"></i> </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--Widget categories-->
+                            <div class="sidebar-widget widget_categories mb-40">
+                                <div class="widget-header position-relative mb-20 pb-10">
+                                    <h5 class="widget-title">Categories</h5>
+                                </div>
+                                <div class="post-block-list post-module-1 post-module-5">
+                                    <ul>
+                                        {% for c in categories %}
+                                        <li class="cat-item cat-item-2"><a href="{% url 'ecommerce:category_product_list' c.cid %}"> {{c.title}} </a> ({{c.category.all.count}})</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Widget ads-->
+                            <!--Widget Tags-->
+                            <div class="sidebar-widget widget_tags mb-50">
+                                <div class="widget-header position-relative mb-20 pb-10">
+                                    <h5 class="widget-title">Popular tags </h5>
+                                </div>
+                                <div class="tagcloud">
+                                    {% for tag in popular_tags %}
+                                    <a class="tag-cloud-link" href="{% url 'ecommerce:tags' tag.slug %}">{{ tag.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

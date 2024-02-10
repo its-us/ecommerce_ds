@@ -165,14 +165,13 @@ $(document).ready(function(){
         let this_val = $(this) 
         let index = this_val.attr("data-index")
         // Récupérer les informations du produit
-        let quantity = $(".product-quantity-" + index).val() //modifihadi wsf
-        let product_title= $(".product-title-" + index).val() 
-        let product_id = $(".product-id-" + index).val() 
+        let quantity = $(".product-quantity-" + index).val()
+        let product_title= $(".product-title-" + index).val()
+        let product_id = $(".product-id-" + index).val()
         let product_price = parseFloat($(".current-product-price-" + index).text().replace('$', ''));
         let total = product_price * parseInt(quantity);
         let product_pid = $(".product-pid-" + index).val()
         let product_image = $(".product-image-" + index).val()
-    
 
         // Afficher les informations dans la console
     

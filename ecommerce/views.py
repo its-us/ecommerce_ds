@@ -400,7 +400,10 @@ def customer_dashboard(request):
         return redirect("ecommerce:dashboard")
 
 
-    user_profile = Profile.objects.get(user=request.user)
+    try:
+        user_profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        user_profile = None
     context = {
         "user_profile":user_profile,
         "orders_list":orders_list,
@@ -529,7 +532,7 @@ def ajax_contact_form(request):
 def contact(request):
     return render(request,'ecommerce/contact.html')
 
-def ajax_contact(request):
+'''def ajax_contact(request):
     pass
 
 def about_us(request):
@@ -544,11 +547,34 @@ def privacy_policy(request):
 def terms_of_service(request):
     return render(request,'ecommerce/terms_of_service.html')
 
-
-
 def purchase_guide(request):
     return(request,"ecommerce/purchase_guide.html")
 def privacy_policy(request):
     return(request,"ecommerce/privacy_policy.html")
 def terms_of_service(request):
     return(request,"ecommerce/terms_of_service.html")
+
+'''
+
+def about(request):
+    return render(request,'ecommerce/about.html')
+
+
+def privacy_policy(request):
+    popular_tags = Tag.objects.annotate(num_products=Count('taggit_taggeditem_items')).order_by('-num_products')[:7]
+    context = {
+        "popular_tags":popular_tags
+    }
+    return render(request,'ecommerce/privacy-policy.html', context)
+
+
+def terms_conditions(request):
+    popular_tags = Tag.objects.annotate(num_products=Count('taggit_taggeditem_items')).order_by('-num_products')[:7]
+    context = {
+        "popular_tags":popular_tags
+    }
+    return render(request,'ecommerce/terms-conditions.html', context)
+
+
+def profile_update(request):
+    return render(request, "ecommerce/profile-edit.html")

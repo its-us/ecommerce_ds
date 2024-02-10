@@ -50,7 +50,7 @@
                                             <div class="card-header border-bottom">
                                                 <h5 class="mb-0">My Profile</h5>
                                             </div>
-                                            <div class="card-body mb-2" style="display: flex; align-items: center; gap:10px;">
+                                            <div class="card-body mb-3" style="display: flex; align-items: center; gap:10px;">
                                                 <div>
                                                     {%if user_profile.image%}
                                                     <span><img src="{{user_profile.image.url}}" style="width:150px; object-fit:cover; border-radius:50%; height:150px" alt=""></span>
@@ -63,7 +63,7 @@
                                                 <div>
                                                     <span><input class="mb-2" type="text" value="Name - {{user_profile.full_name}}"></span>
                                                     <span><input class="mb-2" type="text" value="Bio - {{user_profile.bio}}"></span>
-                                                    <span><input class="mb-2" type="text" value="Phone - {{user_profile.full_phone}}"></span>
+                                                    <span><input class="mb-2" type="text" value="Phone - {{user_profile.phone}}"></span>
                                                     {% if user_profile.verified == True %}
                                                     <div class="p-4 border">
                                                         <span>Verified </span><i class="fas fa-check-circle"></i>
@@ -73,9 +73,8 @@
                                                         <span>Not Verified </span><i class="fas fa-x"></i>
                                                     </div>
                                                     {% endif %}
-                                                    <div class="p-4 border">
-                                                        <button class="btn btn-success">Edit Profile</button>
-                                                    </div>
+                                                    <br>
+                                                        <a href="{% url 'userauths:profile-update' %}" class="btn btn-success">Edit Profile</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,9 +259,9 @@
                 </div>
             </div>
         </section>
-</main>
-<script>
-    const labels = {{month|safe}}
+    </main>
+    <script>
+        const labels = {{month|safe}}
     const data = {
         labels: labels,
         datasets: [{
@@ -283,7 +282,7 @@
         document.getElementById('myChart'),
         config
     );  
-</script>
+    </script>
 
 {% endblock content %}
  
