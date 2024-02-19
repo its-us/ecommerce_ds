@@ -1,4 +1,4 @@
-from ecommerce.views import index,privacy_policy, terms_conditions, contact,about, wishlist_view, ajax_contact_form, remove_wishlist, order_detail, make_address_default, customer_dashboard,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart,add_to_wishlist, delete_item_from_cart
+from ecommerce.views import index,privacy_policy,update_order_status, terms_conditions, contact,about, wishlist_view, ajax_contact_form, remove_wishlist, order_detail, make_address_default, customer_dashboard,checkout_view, payment_failed_view, payment_completed_view, cart_view, update_cart, search_view, category_list_view, product_list_view, vendor_list_view , vendor_detail_view, category_product_list_view, product_detail_view, tag_list , filter_product, ajax_add_review, add_to_cart,add_to_wishlist, delete_item_from_cart
 from django.urls import path
 from django.urls import include 
 from django.conf import settings
@@ -70,10 +70,9 @@ urlpatterns = [
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     
     path('terms-conditions/', terms_conditions, name='terms-conditions'),
-
-
-
+     path('update_order_status/', update_order_status, name='update_order_status'),
 ]
+
 
 
 

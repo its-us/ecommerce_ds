@@ -578,3 +578,38 @@ def terms_conditions(request):
 
 def profile_update(request):
     return render(request, "ecommerce/profile-edit.html")
+
+# views.py
+
+
+from django.views.decorators.csrf import csrf_exempt
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect  # Use csrf_protect instead of @csrf_exempt
+def update_order_status(request):
+  if request.method == 'POST' and request.is_ajax():
+    # Check for CSRF token
+    if not request.is_ajax() or not 'csrfmiddlewaretoken' in request.POST:
+      return JsonResponse({'error': 'Invalid request'}, status=400)
+
+    # Get order ID and update status
+    order_id = request.POST.get('order_id')
+    is_delivered = request.POST.get('is_delivered') == 'true'
+
+    try:
+      order = CartOrder.objects.get(pk=order_id)
+      # Perform your logic to update the order status in the database
+      # (e.g., order.product_status = 'delivered' if is_delivered else 'other_status')
+      order.save()
+      return JsonResponse({'message': 'Order status updated successfully!'})
+    except CartOrder.DoesNotExist:
+      return JsonResponse({'error': 'Invalid order ID'}, status=400)
+    except Exception as e:
+      print(f"Error updating order status: {e}")
+      return JsonResponse({'error': 'Failed to update order status'}, status=500)
+  else:
+    return HttpResponse("This view is for AJAX POST requests only.", status=400)
+
+    

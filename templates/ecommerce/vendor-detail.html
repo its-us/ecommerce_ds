@@ -194,24 +194,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 order-lg-1">
-                <div class="primary-sidebar sticky-sidebar">
+                <div class="col-lg-3 primary-sidebar sticky-sidebar">
                     <div class="row">
                         <div class="col-lg-12 col-mg-6"></div>
                         <div class="col-lg-12 col-mg-6"></div>
                     </div>
                     <div class="widget-category mb-30">
                         <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                        
-                        <ul class="categories">
-                            {% for c in categories %}
-                            <li>
-                                <a href="{% url 'ecommerce:category_product_list' c.cid %}"><img src="{{c.image.url}}" alt="" />{{c.title}}</a>
-                                <span class="count">{{c.category.all.count}}</span>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                       
+                                <ul class="categories">
+                                    {% for c in categories %}
+                                    <li class="category-item">
+                                        <input class="form-check-input filter-checkbox" type="checkbox" name="checkbox" data-filter="category" id="examplecheckbox2" value="{{ c.id }}" />
+                                        <a href="{% url 'ecommerce:category_product_list' c.cid %}" class="category-link">
+                                            <img class="category-icon" src="{{ c.image.url }}" alt="{{ c.title }}">
+                                            <span class="category-title">{{ c.title }}</span>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                        </div>
                     <div id="filterByPrice" class="widget-filter mb">
                         <img class="default-img" src="{% static 'assets\imgs\products\1675131483.webp' %}" alt="" />
                         <img class="hover-img" src="{% static 'assets\imgs\products\1675131483.webp' %}" alt="" />
@@ -220,5 +222,91 @@
             </div>
         </div>
     </div>
+    <style>
+      
+        .categories {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .category-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Ajoute un espace entre chaque élément */
+        }
+        
+        .form-check-input {
+            margin-right: 5px; /* Ajoute un espace entre la checkbox et l'image */
+        }
+        
+        .category-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none; /* Supprime le soulignement du lien */
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .category-title {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        /* Style de la checkbox lorsqu'elle est cochée */
+.form-check-input:checked {
+background-color: brown;
+border-color: brown;
+}
+
+/* Style de la coche à l'intérieur de la checkbox lorsqu'elle est cochée */
+.form-check-input:checked::before {
+content: '\2713'; /* Utilise le caractère Unicode pour la coche (✔) */
+color: white; /* Couleur du texte de la coche */
+font-size: 12px; /* Taille de la coche */
+position: absolute;
+top: 50%; /* Alignement vertical au milieu */
+left: 50%; /* Alignement horizontal au milieu */
+transform: translate(-50%, -50%); /* Ajuste la position pour être centrée */
+}
+input[type="range"] {
+    appearance: none;
+    -webkit-appearance: none;
+    margin-right: 15px;
+    height: 7px;
+    background: rgba(255, 190, 0, 0.6);
+    border-radius: 5px;
+    background-image: linear-gradient(#D8C26E, #D8C26E);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #D8C26E;
+    cursor: ew-resize;
+    box-shadow: 0 0 2px 0 #555;
+    transition: background 0.3s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+        
+            
+    </style>    
 </main>
 {% endblock %}

@@ -1,4 +1,27 @@
 console.log("working fine");
+$(document).ready(function() {
+    // Function to retrieve CSRF token from cookies
+    function getCSRFToken() {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, "csrftoken".length + 1) === "csrftoken=") {
+                    cookieValue = decodeURIComponent(cookie.substring("csrftoken".length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Set up CSRF token for all AJAX requests
+    $.ajaxSetup({
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+        },
+    });
 
 const monthNames = [
     "Jan", "Feb", "Mar", "Apr",
@@ -59,7 +82,7 @@ $("#commentForm").submit(function(e){
     });
 
 });
-
+});
 console.log("working fine");
 
 $("#commentForm").submit(function(e){
@@ -391,4 +414,40 @@ $(document).ready(function(){
         })
     })
 
-})
+
+});
+$(document).ready(function() {
+ 
+  
+    $(".confirm-delivery-checkbox").change(function() {
+      // Get the order ID and checked status
+      var orderId = $(this).data("order-id");
+      var isChecked = $(this).prop("checked");
+  
+      // Update the order status via AJAX
+      $.ajax({
+        type: "POST",
+        url: "/update_order_status/", // Replace with your actual URL
+        data: {
+          order_id: orderId,
+          is_delivered: isChecked
+        },
+        success: function(response) {
+          console.log("Order status updated successfully!");
+          // Update UI and provide feedback (e.g., success message)
+          if (isChecked) {
+            $(this).parent().prev().text("Delivered"); // Update status text
+          } else {
+            $(this).parent().prev().text("{{ order.original_status|title }}"); // Restore original status
+          }
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          console.error("Error updating order status:", xhr.responseText);
+          // Handle errors: display error message, revert checkbox state
+          alert("An error occurred. Please try again later.");
+          $(this).prop("checked", !isChecked); // Revert checkbox state
+        }
+      });
+    });
+  });
+  

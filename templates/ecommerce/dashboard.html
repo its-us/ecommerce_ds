@@ -107,7 +107,9 @@
                                                                 <th>Status</th>
                                                                 <th>Paid Status</th>
                                                                 <th>Total</th>
+                                                                <th>Delivery</th>
                                                                 <th>Actions</th>
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -122,6 +124,11 @@
                                                                 <td class="text-danger"><b><span>X</span><b></td>
                                                                 {% endif %}
                                                                 <td>${{order.price}}</td>
+                                                               <!-- Inside the "orders" tab -->
+                                                               <td>
+                                                                <input type="checkbox" class="confirm-delivery-checkbox" data-order-id="{{ order.id }}"
+                                                                       {% if order.product_status == "delivered" %}checked{% endif %}>
+                                                              </td>
                                                                 <td><a href="{% url "ecommerce:order-detail" order.id %}" class="btn-small d-block">View</a></td>
                                                             </tr>
                                                             {% endfor %}
@@ -282,7 +289,12 @@
         document.getElementById('myChart'),
         config
     );  
-    </script>
+</script>
+    
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    
 
 {% endblock content %}
  
