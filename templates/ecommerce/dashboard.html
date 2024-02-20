@@ -113,26 +113,26 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {% for order in orders_list%}
+                                                            {% for order in orders_list %}
                                                             <tr>
-                                                                <td>INVOICE_NO-{{order.id}}</td>                                                        
-                                                                <td>{{order.order_date}}</td>
-                                                                <td>{{order.product_status|title}}</td>
-                                                                {% if order.paid_status == True %}
+                                                                <td>INVOICE_NO-{{ order.id }}</td>
+                                                                <td>{{ order.order_date }}</td>
+                                                                <td id="status-{{ order.id }}">{{ order.product_status|title }}</td>
+                                                                {% if order.paid_status %}
                                                                 <td><i class="fas fa-check-circle text-success text-align-center"></i></td>
                                                                 {% else %}
                                                                 <td class="text-danger"><b><span>X</span><b></td>
                                                                 {% endif %}
-                                                                <td>${{order.price}}</td>
-                                                               <!-- Inside the "orders" tab -->
-                                                               <td>
-                                                                <input type="checkbox" class="confirm-delivery-checkbox" data-order-id="{{ order.id }}"
-                                                                       {% if order.product_status == "delivered" %}checked{% endif %}>
-                                                              </td>
+                                                                <td>${{ order.price }}</td>
+                                                                <td style="text-align: center;">
+                                                                    <input type="checkbox" class="confirm-delivery-checkbox" data-order-id="{{ order.id }}"
+                                                                        {% if order.product_status == "delivered" %} checked {% endif %}>
+                                                                </td>
                                                                 <td><a href="{% url "ecommerce:order-detail" order.id %}" class="btn-small d-block">View</a></td>
                                                             </tr>
                                                             {% endfor %}
                                                         </tbody>
+                                                        
                                                     </table>
                                                 </div>
                                             </div>

@@ -182,43 +182,34 @@
                         </div>
                         <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                           
-                                    <ul class="categories">
-                                        {% for c in categories %}
-                                        <li class="category-item">
-                                            <input class="form-check-input filter-checkbox" type="checkbox" name="checkbox" data-filter="category" id="examplecheckbox2" value="{{ c.id }}" />
-                                            <a href="{% url 'ecommerce:category_product_list' c.cid %}" class="category-link">
-                                                <img class="category-icon" src="{{ c.image.url }}" alt="{{ c.title }}">
-                                                <span class="category-title">{{ c.title }}</span>
-                                            </a>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                                
-                                
-                                
+                            <ul class="categories">
+                                {% for c in categories %}
+                                <li class="category-item">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" name="checkbox" data-filter="category" id="examplecheckbox2" value="{{ c.id }}" />
+                                    <a href="{% url 'ecommerce:category_product_list' c.cid %}" class="category-link">
+                                        <img class="category-icon" src="{{ c.image.url }}" alt="{{ c.title }}">
+                                        <span class="category-title">{{ c.title }}</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
                         </div>
-                     
                         
+                        <div class="widget-category mb-30">
+                            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Vendor</h5>
+                            <ul class="categories">
+                                {% for v in vendors %}
+                                <li class="category-item">
+                                    <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="checkbox" id="examplecheckbox1" value="{{ v.id }}" />
+                                    <label class="form-check-label" for="examplecheckbox1">
+                                        <span>{{v.title}}</span>
+                                    </label>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                         <!-- Fillter By Price -->
-                        <div class="widget-header position-relative mb-20 pb-10">
-                            <div class="sidebar-widget price_range range mb-30">
-                                <div class="widget-header position-relative mb-20 pb-10">
-                                    <h5 class="section-title style-1 mb-30 wow fadeIn animated">Vendor</h5>
-                                        <div class="d-flex">
-                                            <div class="custom-checkbox mr-80">
-                                                {%for v in vendors %}
-                                                    <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="checkbox" id="examplecheckbox1" value="{{ v.id }}" />
-                                                    <label class="form-check-label"
-                                                    for="examplecheckbox1"><span>{{v.title}}</span></label>
-                                                    <br />
-                                                {%endfor%}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         <!-- Product sidebar Widget -->
                     </div>
                 </div>

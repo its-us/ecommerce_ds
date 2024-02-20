@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse, HttpResponseNotAllowed
 from django.db.models import Count, Avg
 from django.http import  JsonResponse
 from taggit.models import Tag
@@ -8,7 +9,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.urls  import reverse
 from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, contactUs
@@ -55,7 +56,7 @@ def vendor_detail_view(request, vid):
 
 def product_list_view(request):
     products = Product.objects.filter(product_status = "published")
-    vendors = [product.vendor for product in products]
+    vendors = set(product.vendor for product in products)
 
     # Now 'vendors' is a list containing the 'vendor' attribute for each product
     
@@ -582,34 +583,23 @@ def profile_update(request):
 # views.py
 
 
-from django.views.decorators.csrf import csrf_exempt
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_protect
-
-@csrf_protect  # Use csrf_protect instead of @csrf_exempt
+@csrf_protect
 def update_order_status(request):
-  if request.method == 'POST' and request.is_ajax():
-    # Check for CSRF token
-    if not request.is_ajax() or not 'csrfmiddlewaretoken' in request.POST:
-      return JsonResponse({'error': 'Invalid request'}, status=400)
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        is_delivered = request.POST.get('is_delivered') == 'true'
 
-    # Get order ID and update status
-    order_id = request.POST.get('order_id')
-    is_delivered = request.POST.get('is_delivered') == 'true'
-
-    try:
-      order = CartOrder.objects.get(pk=order_id)
-      # Perform your logic to update the order status in the database
-      # (e.g., order.product_status = 'delivered' if is_delivered else 'other_status')
-      order.save()
-      return JsonResponse({'message': 'Order status updated successfully!'})
-    except CartOrder.DoesNotExist:
-      return JsonResponse({'error': 'Invalid order ID'}, status=400)
-    except Exception as e:
-      print(f"Error updating order status: {e}")
-      return JsonResponse({'error': 'Failed to update order status'}, status=500)
-  else:
-    return HttpResponse("This view is for AJAX POST requests only.", status=400)
-
-    
+        try:
+            order = CartOrder.objects.get(pk=order_id)
+            # Update the delivery status of the order
+            order.product_status = 'delivered' if is_delivered else 'processing'
+            order.save()
+            return JsonResponse({'message': 'Order status updated successfully!'})
+        except CartOrder.DoesNotExist:
+            return JsonResponse({'error': 'Invalid order ID'}, status=400)
+        except Exception as e:
+            print(f"Error updating order status: {e}")
+            return JsonResponse({'error': 'Failed to update order status'}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

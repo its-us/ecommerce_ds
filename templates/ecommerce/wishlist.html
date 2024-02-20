@@ -38,8 +38,11 @@
                                     <tr>
                                         <td class="image product-thumbnail"><img src="{{ w.product.image.url }}" alt="#"></td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="{% url 'ecommerce:product-detail' w.product.pid %}">{{w.product.title|truncatechars:30}}</a></h5>
-                                            
+                                            {% if w.product.pid %}
+                                                <a href="{% url 'ecommerce:product-detail' w.product.pid %}">{{w.product.title|truncatechars:30}}</a>
+                                            {% else %}
+                                                Product ID not available
+                                            {% endif %}                                            
                                         </td>
                                         <td class="price" data-title="Price"><span class="current-product-price-{{ w.product.id }}">${{w.product.price|floatformat:2}}</span></td>
                                         <td class="text-center detail-info" data-title="stock">

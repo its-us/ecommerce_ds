@@ -417,37 +417,35 @@ $(document).ready(function(){
 
 });
 $(document).ready(function() {
- 
-  
     $(".confirm-delivery-checkbox").change(function() {
-      // Get the order ID and checked status
-      var orderId = $(this).data("order-id");
-      var isChecked = $(this).prop("checked");
-  
-      // Update the order status via AJAX
-      $.ajax({
-        type: "POST",
-        url: "/update_order_status/", // Replace with your actual URL
-        data: {
-          order_id: orderId,
-          is_delivered: isChecked
-        },
-        success: function(response) {
-          console.log("Order status updated successfully!");
-          // Update UI and provide feedback (e.g., success message)
-          if (isChecked) {
-            $(this).parent().prev().text("Delivered"); // Update status text
-          } else {
-            $(this).parent().prev().text("{{ order.original_status|title }}"); // Restore original status
-          }
-        },
-        error: function(xhr, textStatus, errorThrown) {
-          console.error("Error updating order status:", xhr.responseText);
-          // Handle errors: display error message, revert checkbox state
-          alert("An error occurred. Please try again later.");
-          $(this).prop("checked", !isChecked); // Revert checkbox state
-        }
-      });
+        var checkbox = $(this);
+        var orderId = checkbox.data("order-id");
+        var isChecked = checkbox.prop("checked");
+
+        $.ajax({
+            type: "POST",
+            url: "/update_order_status/",
+            data: {
+                order_id: orderId,
+                is_delivered: isChecked
+            },
+            success: function(response) {
+                console.log("Order status updated successfully!");
+                // Check if the status is delivered and update UI
+                if (isChecked) {
+                    $("#status-" + orderId).text("Delivered");
+                    location.reload();
+                } else {
+                    $("#status-" + orderId).text("Processing");
+                }
+                
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error("Error updating order status:", errorThrown);
+                alert("An error occurred. Please try again later.");
+                // Revert checkbox state if there's an error
+                checkbox.prop("checked", !isChecked);
+            }
+        });
     });
-  });
-  
+});

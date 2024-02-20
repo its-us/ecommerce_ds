@@ -261,7 +261,10 @@ class Wishlist_model(models.Model):
         verbose_name_plural = "Wishlists"
 
     def __str__(self):
-        return self.product.title
+        if self.product:
+            return self.product.title
+        else:
+            return "Product Not Available"
 
 
 class Address(models.Model):

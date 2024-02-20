@@ -70,7 +70,7 @@ urlpatterns = [
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     
     path('terms-conditions/', terms_conditions, name='terms-conditions'),
-     path('update_order_status/', update_order_status, name='update_order_status'),
+    path('update_order_status/', update_order_status, name='update_order_status'),
 ]
 
 
